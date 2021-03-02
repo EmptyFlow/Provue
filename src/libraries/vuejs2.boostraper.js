@@ -1,13 +1,13 @@
 
-window.alreadyusedstyles = {};
-
 function vuejsbootstraper() {
     return {
+        alreadyUsedStyles: {},
+        innerDocument: document.implementation.createHTMLDocument("Inner Document"),
         require: function () {
-            console.log(`Require function is empty! You need setup it as vuejsbootstraper.require = you function`);
+            console.log(`Require function is empty! You need setup it as vuejsbootstraper.require you function`);
         },
         install(Vue) {
-            const self = this;
+            const self = this; 
 
             Vue.mixin({
                 beforeCreate() {
@@ -24,7 +24,7 @@ function vuejsbootstraper() {
             });
         },
         attachStyles(node, url) {
-            if (window.alreadyusedstyles[url]) return;
+            if (this.alreadyUsedStyles[url]) return;
 
             const styleSheet = document.createElement("style");
             
@@ -32,7 +32,7 @@ function vuejsbootstraper() {
 
             document.head.appendChild(styleSheet);
 
-            window.alreadyusedstyles[url] = true;
+            this.alreadyUsedStyles[url] = true;
         },
         async executeScripts(node) {
             const module = {
@@ -57,36 +57,33 @@ function vuejsbootstraper() {
             return `${node.innerHTML}`;
         },
         async parseComponent(text, url) {
-            //TODO: optimizing reuse single document
-            const innerDocument = document.implementation.createHTMLDocument("Inner Document");
-            innerDocument.body.innerHTML = text;
+            const container = this.innerDocument.createElement(`div${(Math.random() * 100)}`);
+            container.innerHTML = text;
 
             let template = ``;
             let moduleExports = null;
-
-            for (let node = innerDocument.body.firstChild; node; node = node.nextSibling) {
-                switch (node.nodeName) {
-                    case "TEMPLATE":
-                    case "CONTAINER-TEMPLATE":
+            for (let node = container.firstChild; node; node = node.nextSibling) {
+                const nodeName = node.nodeName.toLowerCase();
+                switch (nodeName) {
+                    case "template":
                         template = this.parseTemplate(node);
                         break;
-                    case "SCRIPT":
+                    case "script":
                         moduleExports = await this.executeScripts(node);
                         break;
-                    case "STYLE":
+                    case "style":
                         this.attachStyles(node, url);
                         break;
                 }
             }
 
+            container.innerHTML = ``;
+            container.remove();
+
             return {
                 template,
                 moduleExports 
             };
-        },
-        getComponentName(url) {
-            const matches = url.match(/([A-Za-z0-9\-\_\!\=\+])*(\.html)/);
-            return matches[0];
         },
         async download(url) {
             if (!url) {
@@ -100,7 +97,6 @@ function vuejsbootstraper() {
             } catch (e) {
                 console.error(`vuejsbootstraper.download Error while download component ${url} ${e}`);
             }
-
         },
         async loadComponent(url) {
             const componentText = await this.download(url);
@@ -122,3 +118,5 @@ function vuejsbootstraper() {
         }
     }
 }
+
+const Vue2Bootstraper = vuejsbootstraper();
