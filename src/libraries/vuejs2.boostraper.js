@@ -2,7 +2,7 @@
 function vuejsbootstraper() {
     return {
         alreadyUsedStyles: {},
-        innerDocument: document.implementation.createHTMLDocument("Inner Document"),
+        innerDocument: document.implementation.createHTMLDocument(`Inner Document`),
         require: function () {
             console.log(`Require function is empty! You need setup it as vuejsbootstraper.require you function`);
         },
@@ -41,8 +41,8 @@ function vuejsbootstraper() {
 
             //TODO: handle syntax errors!!!
             Function(
-                "module",
-                "require",
+                `module`,
+                `require`,
                 node.innerHTML
             ).call(
                 module.exports,
@@ -65,13 +65,13 @@ function vuejsbootstraper() {
             for (let node = container.firstChild; node; node = node.nextSibling) {
                 const nodeName = node.nodeName.toLowerCase();
                 switch (nodeName) {
-                    case "template":
+                    case `template`:
                         template = this.parseTemplate(node);
                         break;
-                    case "script":
+                    case `script`:
                         moduleExports = await this.executeScripts(node);
                         break;
-                    case "style":
+                    case `style`:
                         this.attachStyles(node, url);
                         break;
                 }
