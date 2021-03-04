@@ -105,7 +105,7 @@ function vuejsbootstraper() {
                 return;
             }
 
-            const { moduleExports, template } = await this.parseComponent(componentText);
+            const { moduleExports, template } = await this.parseComponent(componentText, url);
 
             if (!moduleExports.name) {
                 console.error(`vuejsbootstraper Failed while extract component name from ${url}!`);
