@@ -3,9 +3,7 @@ function vuejsbootstraper() {
     return {
         alreadyUsedStyles: {},
         innerDocument: document.implementation.createHTMLDocument(`Inner Document`),
-        require: function () {
-            console.log(`Require function is empty! You need setup it as vuejsbootstraper.require you function`);
-        },
+        require: {}, // user need specify it directly!!!
         install(Vue) {
             const self = this; 
 
