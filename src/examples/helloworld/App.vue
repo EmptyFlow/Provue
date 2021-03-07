@@ -60,8 +60,8 @@ module.exports = {
         }
     },
     components: {
-        'ButtonState': `remote:/StaticFiles/states/ButtonState.vue`,
-        'ButtonView': `remote:/StaticFiles/views/bootstrap/ButtonView.vue`
+        'ButtonState': `remote:../../states/ButtonState.vue`,
+        'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`
     }
 }
 </script>
