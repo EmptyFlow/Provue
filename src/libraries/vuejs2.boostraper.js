@@ -4,6 +4,7 @@ function vuejsbootstraper() {
         alreadyUsedStyles: {},
         innerDocument: document.implementation.createHTMLDocument(`Inner Document`),
         require: {}, // user need specify it directly!!!
+        downloadingQueue: {},
         install(Vue) {
             const self = this; 
 
@@ -83,15 +84,23 @@ function vuejsbootstraper() {
                 moduleExports 
             };
         },
+        async innerDownload(url) {
+            const response = await fetch(url);
+            return await response.text();
+        },
         async download(url) {
             if (!url) {
                 console.warn(`vuejsbootstraper.download Url not defined!`);
                 return;
             }
 
+            // resolve batching issue
+            if (url in this.downloadingQueue) return await this.downloadingQueue[url];
+
             try {
-                const response = await fetch(url);
-                return await response.text();
+                this.downloadingQueue[url] = this.innerDownload(url);
+                const content = await this.downloadingQueue[url];
+                return content;
             } catch (e) {
                 console.error(`vuejsbootstraper.download Error while download component ${url} ${e}`);
             }
