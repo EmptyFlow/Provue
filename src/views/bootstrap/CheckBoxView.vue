@@ -1,0 +1,27 @@
+<template>
+    <div class="form-check">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            :checked="context.checked"
+            @input="context.toggle()"
+        >
+        <label
+            v-if="context.title"
+            class="form-check-label">
+            {{ context.title }}
+        </label>
+    </div>
+</template>
+
+<script>
+module.exports = {
+    name: `CheckBoxView`,
+    props: {
+        context: {
+            type: Object,
+            required: true
+        }
+    }
+};
+</script>

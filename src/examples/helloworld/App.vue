@@ -1,45 +1,56 @@
 <template>
-    <div class="container">
-        <button-state @clicked="test()" title="Primary">
-            <template #default="{ context }">
-                <button-view :context="context" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Secondary">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="secondary" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Success">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="success" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Danger">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="danger" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Warning">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="warning" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Light">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="light" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Dark">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="dark" />
-            </template>
-        </button-state>
-        <button-state @clicked="test()" title="Link">
-            <template #default="{ context }">
-                <button-view :context="context" appearance="link" />
-            </template>
-        </button-state>
+   <div>
+       <div class="container">
+            <button-state @clicked="test()" title="Primary">
+                <template #default="{ context }">
+                    <button-view :context="context" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Secondary">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="secondary" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Success">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="success" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Danger">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="danger" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Warning">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="warning" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Light">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="light" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Dark">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="dark" />
+                </template>
+            </button-state>
+            <button-state @clicked="test()" title="Link">
+                <template #default="{ context }">
+                    <button-view :context="context" appearance="link" />
+                </template>
+            </button-state>
+        </div>
+        <div class="container">
+            <check-box-state v-model="check1" title="Checkbox">
+                <template #default="{ context }">
+                    <check-box-view :context="context" />
+                </template>
+            </check-box-state>
+            <span v-if="check1"> checked!!!!</span>
+            <span v-if="!check1"> not checked!!!!</span>
+        </div>
     </div>
 </template>
 
@@ -51,7 +62,8 @@ module.exports = {
     name: `Boot`,
     data() {
         return {
-            text: `Muherka`
+            text: `Muherka`,
+            check1: true
         }
     },
     methods: {
@@ -61,7 +73,9 @@ module.exports = {
     },
     components: {
         'ButtonState': `remote:../../states/ButtonState.vue`,
-        'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`
+        'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
+        'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
+        'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
     }
 }
 </script>
