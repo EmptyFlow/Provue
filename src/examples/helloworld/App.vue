@@ -43,7 +43,7 @@
             </button-state>
         </div>
         <div class="container">
-            <check-box-state v-model="check1" title="Checkbox">
+            <check-box-state v-model="check1" title="Checkbox" :validators="checkBoxValidators">
                 <template #default="{ context }">
                     <check-box-view :context="context" />
                 </template>
@@ -63,12 +63,29 @@ module.exports = {
     data() {
         return {
             text: `Muherka`,
-            check1: true
+            check1: false,
+            checkBoxValidators: this.getCheckBoxValidators()
         }
     },
     methods: {
         test() {
             alert(`Yahooo!!!`);
+        },
+        getCheckBoxValidators() {
+            return {
+                'isNotCheck': {
+                    check(value) {
+                       if (!value) {
+                           this.messages = ['Value is not checked!!'];
+                           return false;
+                       }
+
+                       this.messages = [];
+                       return true;
+                    },
+                    messages: []
+                }
+            }
         }
     },
     components: {

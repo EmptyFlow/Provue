@@ -2,6 +2,7 @@
     <div class="form-check">
         <input
             class="form-check-input"
+            :class="{ 'is-invalid': !context.isValid, 'is-valid': context.validators && context.isValid }"
             type="checkbox"
             :checked="context.checked"
             @input="context.toggle()"
