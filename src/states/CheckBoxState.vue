@@ -19,6 +19,17 @@ module.exports = {
         disable: {
             type: Boolean,
             default: () => false
+        },
+        validators: {
+            type: Object,
+            default: () => {}
+        },
+        validateHost: {
+            type: Object
+        },
+        isValid: {
+            type: Boolean,
+            default: () => true
         }
     },
     data() {
@@ -28,14 +39,28 @@ module.exports = {
     },
     created() {
         this.checked = this.value;
+        this.validate();
     },
     methods: {
+        validate() {
+            if (!this.validators) return;
+            if (this.validateHost) this.validateHost.clear();
+            this.isValid = true;
+
+            for (const [key, value] of Object.entries(this.validators)) {
+                if (!value.check(this.checked)) {
+                    this.isValid = false;
+                    if (this.validateHost) this.validateHost.add({ rule: key, messages: value.messages });
+                }
+            }
+        },
         toggle() {
             if (this.disable) return;
 
-            this.value = !this.value;
+            this.checked = !this.checked;
 
             this.raiseEvents();
+            this.validate();
         },
         raiseEvents() {
             this.$emit(`checked`, this.checked); // added for separate v-model events and external events
@@ -47,6 +72,7 @@ module.exports = {
             this.checked = newValue;
             
             this.raiseEvents();
+            this.validate();
         }
     }
 };
