@@ -2,7 +2,7 @@
 
 function dependencyResolver() {
     return {
-        globalAliases: {            
+        globalAliases: {
         },
         dependencyHash: {
         },
