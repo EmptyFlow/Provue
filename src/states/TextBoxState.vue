@@ -6,15 +6,19 @@
 
 <script>
 module.exports = {
-    name: `CheckBoxState`,
+    name: `TextBoxState`,
     props: {
-        title: {
+        value: {
             type: String,
             default: () => ``
         },
-        value: {
-            type: Object,
-            default: () => null
+        type: {
+            type: String,
+            default: () => `text`
+        },
+        placeholder: {
+            type: String,
+            default: () => ``
         },
         disable: {
             type: Boolean,
@@ -34,11 +38,11 @@ module.exports = {
     },
     data() {
         return {
-            checked: null
+            text: false
         }
     },
     created() {
-        this.checked = this.value;
+        this.text = this.value;
         this.validate();
     },
     methods: {
@@ -48,38 +52,28 @@ module.exports = {
             this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
-                if (!value.check(this.checked)) {
+                if (!value.check(this.text)) {
                     this.isValid = false;
                     if (this.validateHost) this.validateHost.add({ rule: key, messages: value.messages });
                 }
             }
         },
-        click($event) {
+        type(text) {
             if (this.disable) return;
 
-            switch (this.checked) {
-                case true:
-                    this.checked = null;
-                    break;
-                case false:
-                    this.checked = true;
-                    break;
-                default:
-                    this.checked = false;
-                    break;
-            }
+            this.text = text;
 
             this.raiseEvents();
             this.validate();
         },
         raiseEvents() {
-            this.$emit(`checked`, this.checked); // added for separate v-model events and external events
-            this.$emit(`input`, this.checked);
-        }
+            this.$emit(`typed`, this.text); // added for separate v-model events and external events
+            this.$emit(`input`, this.text);
+        }        
     },
     watch: {
         value(newValue) {
-            this.checked = newValue;
+            this.text = newValue;
             
             this.raiseEvents();
             this.validate();

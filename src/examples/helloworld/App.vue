@@ -51,6 +51,14 @@
             <span v-if="check1"> checked!!!!</span>
             <span v-if="!check1"> not checked!!!!</span>
         </div>
+        <div class="container">
+            <text-box-state v-model="textValue" placeholder="Type text">
+                <template #default="{ context }">
+                    <text-box-view :context="context" />
+                </template>
+            </text-box-state>
+            <span> {{ textValue }}</span>
+        </div>
     </div>
 </template>
 
@@ -64,6 +72,7 @@ module.exports = {
         return {
             text: `Muherka`,
             check1: false,
+            textValue: ``,
             checkBoxValidators: this.getCheckBoxValidators()
         }
     },
@@ -93,6 +102,8 @@ module.exports = {
         'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
         'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
         'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
+        'TextBoxState': `remote:../../states/TextBoxState.vue`,
+        'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
     }
 }
 </script>
