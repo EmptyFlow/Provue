@@ -1,8 +1,8 @@
 <template>
     <ul class="list-group">
-        <li :class="{'list-group-item': true, 'disabled': context.disable, 'active': context.activeHandler(item)}"
-            v-for="(item, index) of context.value" :key="index" 
-            @click="context.click(item)">
+        <li :class="{'list-group-item': true, 'disabled': context.disable, 'active': context.selectedOptions.has(item) }"
+            v-for="(item, index) of context.options" :key="index" 
+            @click="context.select(item)">
             <slot name="content" :item="item"></slot>
         </li>
     </ul>
@@ -10,7 +10,7 @@
 
 <script>
 module.exports = {
-    name: `ListGroupView`,
+    name: `ListBoxView`,
     props: {
         context: {
             type: Object,

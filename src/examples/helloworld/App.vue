@@ -54,33 +54,35 @@
         <div class="container">
             <div class="stack">
                 <h3>Bootstrap</h3>
-                <list-group-state v-model="listItems"
-                    :active-handler="listActiveItem"
-                    @clicked="listItemClicked($event)">
+                <list-box-state 
+                    v-model="selectedItem"
+                    :options="listItems"
+                    @selected="listItemSelected($event)">
                     <template #default="{ context }">
-                        <list-group-view :context="context">
+                        <list-box-view :context="context">
                             <template #content="{ item }">
-                                {{item}}
+                                {{item.title}}
                             </template>
-                        </list-group-view>
+                        </list-box-view>
                     </template>
-                </list-group-state>
+                </list-box-state>
             </div>
             <div class="stack">
                 <h3>Material</h3>
-                <list-group-state class="full-width "
-                    v-model="listItems"
-                    :active-handler="listActiveItem"
-                    @clicked="listItemClicked($event)">
+                <list-box-state class="full-width "
+                    v-model="selectedItem"
+                    :options="listItems"
+                    @selected="listItemSelected($event)">
                     <template #default="{ context }">
-                        <list-group-material :context="context">
+                        <list-box-material :context="context">
                             <template #content="{ item }">
-                                <div>{{item}}</div>
+                                <div>{{item.title}}</div>
                             </template>
-                        </list-group-material>
+                        </list-box-material>
                     </template>
-                </list-group-state>
+                </list-box-state>
             </div>
+            {{selectedItem}}
         </div>
     </div>
 </template>
@@ -97,18 +99,16 @@ module.exports = {
             text: `Muherka`,
             check1: true,
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-            selectedItemId: null
+            selectedItem: []
         }
     },
     methods: {
         test() {
             alert(`Yahooo!!!`);
         },
-        listActiveItem(item) {
-            return item && item.id === this.selectedItemId;
-        },
-        listItemClicked($event) {
-            if($event && $event.id) this.selectedItemId = $event.id
+
+        listItemSelected($event) {
+            console.log($event);
         }
     },
     components: {
@@ -116,11 +116,11 @@ module.exports = {
         'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
         'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
         'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
-        'ListGroupState': `remote:../../states/ListGroupState.vue`,
-        'ListGroupView': `remote:../../views/bootstrap/ListGroupView.vue`,
-        'ListGroupItemState': `remote:../../states/ListGroupItemState.vue`,
-        'ListGroupView': `remote:../../views/bootstrap/ListGroupView.vue`,
-        'ListGroupMaterial': `remote:../../views/material/ListGroupView.vue`,
+        'ListBoxState': `remote:../../states/ListBoxState.vue`,
+        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+        'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
+        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+        'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
     }
 }
 </script>
