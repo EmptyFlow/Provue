@@ -59,6 +59,14 @@
             </text-box-state>
             <span> {{ textValue }}</span>
         </div>
+        <div class="container">
+            <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80">
+                <template #default="{ context }">
+                    <text-area-view :context="context" />
+                </template>
+            </text-area-state>
+            <span> {{ multiTextValue }}</span>
+        </div>
     </div>
 </template>
 
@@ -73,6 +81,7 @@ module.exports = {
             text: `Muherka`,
             check1: false,
             textValue: ``,
+            multiTextValue: `argyus`,
             checkBoxValidators: this.getCheckBoxValidators()
         }
     },
@@ -104,6 +113,8 @@ module.exports = {
         'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
         'TextBoxState': `remote:../../states/TextBoxState.vue`,
         'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
+        'TextAreaState': `remote:../../states/TextAreaState.vue`,
+        'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
     }
 }
 </script>
