@@ -6,6 +6,7 @@
             type="checkbox"
             :checked="context.checked"
             @input="context.toggle()"
+            :disabled="context.disable"
         >
         <label
             v-if="context.title"

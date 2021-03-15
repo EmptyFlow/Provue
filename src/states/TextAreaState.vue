@@ -6,24 +6,32 @@
 
 <script>
 module.exports = {
-    name: `TextBoxState`,
+    name: `TextAreaState`,
     props: {
         value: {
             type: String,
             default: () => ``
         },
-        type: {
-            type: String,
-            default: () => `text`
-        },
         placeholder: {
             type: String,
             default: () => ``
         },
+        countLines: {
+            type: Number,
+            default: () => -1
+        },
+        lineWidth: {
+            type: Number,
+            default: () => -1
+        },
+        maximumCharacters: {
+            type: Number,
+            default: () => -1
+        },
         readOnly: {
             type: Boolean,
             default: () => false
-        },                
+        },
         disable: {
             type: Boolean,
             default: () => false
