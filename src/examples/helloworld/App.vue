@@ -1,106 +1,111 @@
 <template>
-   <div>
-       <div class="container">
-            <button-state @clicked="test()" title="Primary">
-                <template #default="{ context }">
-                    <button-view :context="context" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Secondary">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="secondary" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Success">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="success" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Danger">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="danger" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Warning">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="warning" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Light">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="light" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Dark">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="dark" />
-                </template>
-            </button-state>
-            <button-state @clicked="test()" title="Link">
-                <template #default="{ context }">
-                    <button-view :context="context" appearance="link" />
-                </template>
-            </button-state>
-        </div>
-        <div class="container">
-            <check-box-state v-model="check1" title="Checkbox" :validators="checkBoxValidators">
-                <template #default="{ context }">
-                    <check-box-view :context="context" />
-                </template>
-            </check-box-state>
-            <span v-if="check1"> checked!!!!</span>
-            <span v-if="!check1"> not checked!!!!</span>
-        </div>
-        <div class="container">
-            <div class="stack">
-                <h3>Bootstrap</h3>
-                <list-box-state 
-                    v-model="selectedItem"
-                    :options="listItems"
-                    @selected="listItemSelected($event)">
+    <validate-host @validatechanged="isAllValidated = $event">
+        <template #default="{ validatehost }">
+            <div class="container">
+                <button-state @clicked="test()" title="Primary">
                     <template #default="{ context }">
-                        <list-box-view :context="context">
-                            <template #content="{ item }">
-                                {{item.title}}
-                            </template>
-                        </list-box-view>
+                        <button-view :context="context" />
                     </template>
-                </list-box-state>
-            </div>
-            <div class="stack">
-                <h3>Material</h3>
-                <list-box-state class="full-width "
-                    v-model="selectedItem"
-                    :options="listItems"
-                    @selected="listItemSelected($event)">
+                </button-state>
+                <button-state @clicked="test()" title="Secondary">
                     <template #default="{ context }">
-                        <list-box-material :context="context">
-                            <template #content="{ item }">
-                                <div>{{item.title}}</div>
-                            </template>
-                        </list-box-material>
+                        <button-view :context="context" appearance="secondary" />
                     </template>
-                </list-box-state>
+                </button-state>
+                <button-state @clicked="test()" title="Success">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="success" />
+                    </template>
+                </button-state>
+                <button-state @clicked="test()" title="Danger">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="danger" />
+                    </template>
+                </button-state>
+                <button-state @clicked="test()" title="Warning">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="warning" />
+                    </template>
+                </button-state>
+                <button-state @clicked="test()" title="Light">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="light" />
+                    </template>
+                </button-state>
+                <button-state @clicked="test()" title="Dark">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="dark" />
+                    </template>
+                </button-state>
+                <button-state @clicked="test()" title="Link">
+                    <template #default="{ context }">
+                        <button-view :context="context" appearance="link" />
+                    </template>
+                </button-state>
             </div>
-        </div>
-        <div class="container">
-            {{selectedItem}}
-            <text-box-state v-model="textValue" placeholder="Type text">
-                <template #default="{ context }">
-                    <text-box-view :context="context" />
-                </template>
-            </text-box-state>
-            <span> {{ textValue }}</span>
-        </div>
-        <div class="container">
-            <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80">
-                <template #default="{ context }">
-                    <text-area-view :context="context" />
-                </template>
-            </text-area-state>
-            <span> {{ multiTextValue }}</span>
-        </div>
-    </div>
+            <div class="container">
+                <check-box-state v-model="check1" title="Checkbox" :validators="checkBoxValidators" :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <check-box-view :context="context" />
+                    </template>
+                </check-box-state>
+                <span v-if="check1"> checked!!!!</span>
+                <span v-if="!check1"> not checked!!!!</span>
+            </div>
+            <div class="container">
+                <div class="stack">
+                    <h3>Bootstrap</h3>
+                    <list-box-state 
+                        v-model="selectedItem"
+                        :options="listItems"
+                        @selected="listItemSelected($event)">
+                        <template #default="{ context }">
+                            <list-box-view :context="context">
+                                <template #content="{ item }">
+                                    {{item.title}}
+                                </template>
+                            </list-box-view>
+                        </template>
+                    </list-box-state>
+                </div>
+                <div class="stack">
+                    <h3>Material</h3>
+                    <list-box-state class="full-width "
+                        v-model="selectedItem"
+                        :options="listItems"
+                        @selected="listItemSelected($event)">
+                        <template #default="{ context }">
+                            <list-box-material :context="context">
+                                <template #content="{ item }">
+                                    <div>{{item.title}}</div>
+                                </template>
+                            </list-box-material>
+                        </template>
+                    </list-box-state>
+                </div>
+            </div>
+            <div class="container">
+                <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <text-box-view :context="context" />
+                    </template>
+                </text-box-state>
+                <span> {{ textValue }}</span>
+            </div>
+            <div class="container">
+                <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80" :validators="checkBoxValidators" :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <text-area-view :context="context" />
+                    </template>
+                </text-area-state>
+                <span> {{ multiTextValue }}</span>
+            </div>
+            <div>
+                <span v-if="isAllValidated">All validated!!!</span>
+                <span v-else>Not valid!!!</span>
+            </div>
+        </template>
+    </validate-host>
 </template>
 
 <script>
@@ -118,7 +123,8 @@ module.exports = {
             multiTextValue: `argyus`,
             checkBoxValidators: this.getCheckBoxValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-            selectedItem: []
+            selectedItem: [],
+            isAllValidated: false
 
         }
     },
@@ -160,6 +166,7 @@ module.exports = {
         'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
         'TextAreaState': `remote:../../states/TextAreaState.vue`,
         'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+        'ValidateHost': `remote:../../states/ValidateHost.vue`,
     }
 }
 </script>

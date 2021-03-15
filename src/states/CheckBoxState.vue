@@ -26,15 +26,12 @@ module.exports = {
         },
         validateHost: {
             type: Object
-        },
-        isValid: {
-            type: Boolean,
-            default: () => true
         }
     },
     data() {
         return {
-            checked: false
+            checked: false,
+            isValid: false
         }
     },
     created() {
@@ -44,13 +41,13 @@ module.exports = {
     methods: {
         validate() {
             if (!this.validators) return;
-            if (this.validateHost) this.validateHost.clear();
+            if (this.validateHost) this.validateHost.clear(this);
             this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
                 if (!value.check(this.checked)) {
                     this.isValid = false;
-                    if (this.validateHost) this.validateHost.add({ rule: key, messages: value.messages });
+                    if (this.validateHost) this.validateHost.add(this, { rule: key, messages: value.messages });
                 }
             }
         },
