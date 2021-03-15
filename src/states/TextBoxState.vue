@@ -6,16 +6,24 @@
 
 <script>
 module.exports = {
-    name: `CheckBoxState`,
+    name: `TextBoxState`,
     props: {
-        title: {
+        value: {
             type: String,
             default: () => ``
         },
-        value: {
+        type: {
+            type: String,
+            default: () => `text`
+        },
+        placeholder: {
+            type: String,
+            default: () => ``
+        },
+        readOnly: {
             type: Boolean,
             default: () => false
-        },
+        },                
         disable: {
             type: Boolean,
             default: () => false
@@ -34,11 +42,11 @@ module.exports = {
     },
     data() {
         return {
-            checked: false
+            text: false
         }
     },
     created() {
-        this.checked = this.value;
+        this.text = this.value;
         this.validate();
     },
     methods: {
@@ -48,28 +56,28 @@ module.exports = {
             this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
-                if (!value.check(this.checked)) {
+                if (!value.check(this.text)) {
                     this.isValid = false;
                     if (this.validateHost) this.validateHost.add({ rule: key, messages: value.messages });
                 }
             }
         },
-        toggle() {
+        type(text) {
             if (this.disable) return;
 
-            this.checked = !this.checked;
+            this.text = text;
 
             this.raiseEvents();
             this.validate();
         },
         raiseEvents() {
-            this.$emit(`checked`, this.checked); // added for separate v-model events and external events
-            this.$emit(`input`, this.checked);
+            this.$emit(`typed`, this.text); // added for separate v-model events and external events
+            this.$emit(`input`, this.text);
         }        
     },
     watch: {
         value(newValue) {
-            this.checked = newValue;
+            this.text = newValue;
             
             this.raiseEvents();
             this.validate();

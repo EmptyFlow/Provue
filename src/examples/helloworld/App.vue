@@ -43,7 +43,7 @@
             </button-state>
         </div>
         <div class="container">
-            <check-box-state v-model="check1" title="Checkbox">
+            <check-box-state v-model="check1" title="Checkbox" :validators="checkBoxValidators">
                 <template #default="{ context }">
                     <check-box-view :context="context" />
                 </template>
@@ -82,7 +82,23 @@
                     </template>
                 </list-box-state>
             </div>
+        </div>
+        <div class="container">
             {{selectedItem}}
+            <text-box-state v-model="textValue" placeholder="Type text">
+                <template #default="{ context }">
+                    <text-box-view :context="context" />
+                </template>
+            </text-box-state>
+            <span> {{ textValue }}</span>
+        </div>
+        <div class="container">
+            <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80">
+                <template #default="{ context }">
+                    <text-area-view :context="context" />
+                </template>
+            </text-area-state>
+            <span> {{ multiTextValue }}</span>
         </div>
     </div>
 </template>
@@ -97,18 +113,37 @@ module.exports = {
     data() {
         return {
             text: `Muherka`,
-            check1: true,
+            check1: false,
+            textValue: ``,
+            multiTextValue: `argyus`,
+            checkBoxValidators: this.getCheckBoxValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
             selectedItem: []
+
         }
     },
     methods: {
         test() {
             alert(`Yahooo!!!`);
         },
-
         listItemSelected($event) {
             console.log($event);
+        },
+        getCheckBoxValidators() {
+            return {
+                'isNotCheck': {
+                    check(value) {
+                       if (!value) {
+                           this.messages = ['Value is not checked!!'];
+                           return false;
+                       }
+
+                       this.messages = [];
+                       return true;
+                    },
+                    messages: []
+                }
+            }
         }
     },
     components: {
@@ -121,6 +156,10 @@ module.exports = {
         'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
         'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
         'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
+        'TextBoxState': `remote:../../states/TextBoxState.vue`,
+        'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
+        'TextAreaState': `remote:../../states/TextAreaState.vue`,
+        'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
     }
 }
 </script>

@@ -13,8 +13,8 @@ module.exports = {
             default: () => ``
         },
         value: {
-            type: Boolean,
-            default: () => false
+            type: Object,
+            default: () => null
         },
         disable: {
             type: Boolean,
@@ -34,7 +34,7 @@ module.exports = {
     },
     data() {
         return {
-            checked: false
+            checked: null
         }
     },
     created() {
@@ -54,10 +54,20 @@ module.exports = {
                 }
             }
         },
-        toggle() {
+        click($event) {
             if (this.disable) return;
 
-            this.checked = !this.checked;
+            switch (this.checked) {
+                case true:
+                    this.checked = null;
+                    break;
+                case false:
+                    this.checked = true;
+                    break;
+                default:
+                    this.checked = false;
+                    break;
+            }
 
             this.raiseEvents();
             this.validate();
@@ -65,7 +75,7 @@ module.exports = {
         raiseEvents() {
             this.$emit(`checked`, this.checked); // added for separate v-model events and external events
             this.$emit(`input`, this.checked);
-        }        
+        }
     },
     watch: {
         value(newValue) {
