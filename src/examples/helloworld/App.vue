@@ -100,6 +100,19 @@
                 </text-area-state>
                 <span> {{ multiTextValue }}</span>
             </div>
+            <div class="container">
+                <number-box
+                    v-model="number"
+                    placeholder="Type number"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost"
+                    :maximum="100">
+                    <template #default="{ context }">
+                        <number-box-view :context="context" />
+                    </template>
+                </number-box>
+                <span>Actual number value is {{ number }}</span>
+            </div>
             <div>
                 <span v-if="isAllValidated">All validated!!!</span>
                 <span v-else>Not valid!!!</span>
@@ -124,8 +137,8 @@ module.exports = {
             checkBoxValidators: this.getCheckBoxValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
             selectedItem: [],
-            isAllValidated: false
-
+            isAllValidated: false,
+            number: 0
         }
     },
     methods: {
@@ -167,6 +180,8 @@ module.exports = {
         'TextAreaState': `remote:../../states/TextAreaState.vue`,
         'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
         'ValidateHost': `remote:../../states/ValidateHost.vue`,
+        'NumberBox': `remote:../../states/NumberBox.vue`,
+        'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
     }
 }
 </script>

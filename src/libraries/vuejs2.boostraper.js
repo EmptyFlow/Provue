@@ -123,6 +123,15 @@ function vuejsbootstraper() {
             moduleExports.template = template;
 
             return moduleExports;
+        },
+        async loadComponentGlobally(url) {
+            const component = await loadComponent(url);
+            if (!component) return;
+
+            Vue.component(component.name, component);
+        },
+        loadComponentsGlobally(urls) {
+            return Promise.all(urls.map(url => loadComponentGlobally(url)));
         }
     }
 }
