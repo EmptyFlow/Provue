@@ -113,9 +113,30 @@
                 </number-box>
                 <span>Actual number value is {{ number }}</span>
             </div>
-            <div>
+            <div class="container">
                 <span v-if="isAllValidated">All validated!!!</span>
                 <span v-else>Not valid!!!</span>
+            </div>
+            <div class="container">
+                Font awesome icons: 
+                <font-icon
+                    group="fas"
+                    id="fa-address-card"
+                    size="24px">
+                    <template #default="{ context }"><font-icon-view :context="context" /></template>
+                </font-icon>
+                <font-icon
+                    group="fab"
+                    id="fa-amazon"
+                    size="24px">
+                    <template #default="{ context }"><font-icon-view :context="context" /></template>
+                </font-icon>
+                <font-icon
+                    group="fab"
+                    id="fa-google-play"
+                    size="24px">
+                    <template #default="{ context }"><font-icon-view :context="context" /></template>
+                </font-icon>
             </div>
         </template>
     </validate-host>
@@ -125,6 +146,7 @@
 //load bootstrap styles
 require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css`);
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
+require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
 module.exports = {  
     name: `Boot`,
@@ -180,8 +202,10 @@ module.exports = {
         'TextAreaState': `remote:../../states/TextAreaState.vue`,
         'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
         'ValidateHost': `remote:../../states/ValidateHost.vue`,
-        'NumberBox': `remote:../../states/NumberBox.vue`,
+        'NumberBox': `remote:../../states/NumberBoxState.vue`,
         'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
+        'FontIcon': `remote:../../states/FontIconState.vue`,
+        'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
     }
 }
 </script>

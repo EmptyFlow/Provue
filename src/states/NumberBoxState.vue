@@ -6,7 +6,7 @@
 
 <script>
 module.exports = {
-    name: `NumberBox`,
+    name: `NumberBoxState`,
     props: {
         title: {
             type: String,
@@ -92,6 +92,9 @@ module.exports = {
             } else {
                 value = null;
             }
+
+            if (value > this.maximum) value = this.maximum;
+            if (value < this.minimum) value = this.minimum;
 
             this.number = value;
 
