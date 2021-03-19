@@ -26,18 +26,39 @@ module.exports = {
         autoClose: {
             type: Boolean,
             default: () => true
+        },
+        validators: {
+            type: Object,
+            default: () => {}
+        },
+        validateHost: {
+            type: Object
         }
     },
     data () {
         return {
             open: false,
+            isValid: false,
             selectedOptions: null
         }  
     },
     created() {
         this.setSelectedOptions(this.value);
+        this.validate();
     },
     methods: {
+        validate() {
+            if (!this.validators) return;
+            if (this.validateHost) this.validateHost.clear(this);
+            this.isValid = true;
+
+            for (const [key, value] of Object.entries(this.validators)) {
+                if (!value.check(Array.from(this.selectedOptions))) {
+                    this.isValid = false;
+                    if (this.validateHost) this.validateHost.add(this, { rule: key, messages: value.messages });
+                }
+            }
+        },
         toggle() {
             this.open = ! this.open;
         },
@@ -67,11 +88,14 @@ module.exports = {
 
             this.$emit(`selected`, $event);
             this.$emit(`input`, this.multiply ? Array.from(this.selectedOptions) : this.selectedOptions.values().next().value || null);
+
+            this.validate();
         }
     },
     watch: {
         value(newValue) {
             this.setSelectedOptions(newValue);
+            this.validate();
         }
     }
 };
