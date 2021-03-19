@@ -60,7 +60,7 @@ module.exports = {
             }
         },
         toggle() {
-            this.open = ! this.open;
+            this.open = !this.open;
         },
         setSelectedOptions(newValue) {
             this.selectedOptions = null;
