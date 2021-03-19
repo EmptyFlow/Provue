@@ -69,7 +69,7 @@
             </div>
             <div class="stack">
                 <h3>Material</h3>
-                <list-box-state class="full-width "
+                <list-box-state class="full-width"
                     v-model="selectedItem"
                     :options="listItems"
                     @selected="listItemSelected($event)">
@@ -84,13 +84,41 @@
             </div>
         </div>
         <div class="container">
-            {{selectedItem}}
-            <text-box-state v-model="textValue" placeholder="Type text">
+            {{selectedSingleItem}}
+             <dropdown-state class="full-width dropup"
+                v-model="selectedSingleItem"
+                :options="listItems"
+                @selected="listItemSelected($event)">
                 <template #default="{ context }">
-                    <text-box-view :context="context" />
+                    <dropdown-view :context="context">
+                        <template #content="{ item }">
+                            <div>{{item.title}}</div>
+                        </template>
+                    </dropdown-view>
                 </template>
-            </text-box-state>
-            <span> {{ textValue }}</span>
+            </dropdown-state>
+            {{selectedItems}}
+            <dropdown-state class="full-width"
+                v-model="selectedItems"
+                :options="listItems"
+                multiply
+                @selected="listItemSelected($event)">
+                <template #default="{ context }">
+                    <dropdown-view :context="context">
+                        <template #content="{ item }">
+                            <div>{{item.title}}</div>
+                        </template>
+                    </dropdown-view>
+                </template>
+            </dropdown-state>
+        </div>
+        <div class="container">
+            <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80">
+                <template #default="{ context }">
+                    <text-area-view :context="context" />
+                </template>
+            </text-area-state>
+            <span> {{ multiTextValue }}</span>
         </div>
         <div class="container">
             <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80">
@@ -107,6 +135,7 @@
 //load bootstrap styles
 require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css`);
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
+// await require.resolveScripts(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 
 module.exports = {  
     name: `Boot`,
@@ -118,7 +147,9 @@ module.exports = {
             multiTextValue: `argyus`,
             checkBoxValidators: this.getCheckBoxValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-            selectedItem: []
+            selectedItem: [],
+            selectedSingleItem: null,
+            selectedItems: []
 
         }
     },
@@ -160,6 +191,8 @@ module.exports = {
         'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
         'TextAreaState': `remote:../../states/TextAreaState.vue`,
         'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+        'DropdownState': `remote:../../states/DropdownState.vue`,
+        'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
     }
 }
 </script>
