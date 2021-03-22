@@ -44,13 +44,31 @@
                 </button-state>
             </div>
             <div class="container">
-                <check-box-state v-model="check1" title="Checkbox" :validators="checkBoxValidators" :validate-host="validatehost">
+                <check-box-state
+                    v-model="check1"
+                    title="Checkbox"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost">
                     <template #default="{ context }">
                         <check-box-view :context="context" />
                     </template>
                 </check-box-state>
                 <span v-if="check1"> checked!!!!</span>
                 <span v-if="!check1"> not checked!!!!</span>
+            </div>
+            <div class="container">
+                <check-box-tri-state
+                    v-model="check2"
+                    title="CheckboxTriState"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <check-box-tri-view :context="context" />
+                    </template>
+                </check-box-tri-state>
+                <span v-if="check2"> checked!!!!</span>
+                <span v-if="check2 === false"> not checked!!!!</span>
+                <span v-if="check2 === null"> not defined!!!!</span>
             </div>
             <div class="container">
                 <div class="stack">
@@ -85,7 +103,11 @@
                 </div>
             </div>
             <div class="container">
-                <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
+                <text-box-state
+                    v-model="textValue"
+                    placeholder="Type text"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost">
                     <template #default="{ context }">
                         <text-box-view :context="context" />
                     </template>
@@ -93,7 +115,13 @@
                 <span> {{ textValue }}</span>
             </div>
             <div class="container">
-                <text-area-state v-model="multiTextValue" placeholder="Type multi text" :count-lines="10" :line-width="80" :validators="checkBoxValidators" :validate-host="validatehost">
+                <text-area-state
+                    v-model="multiTextValue"
+                    placeholder="Type multi text"
+                    :count-lines="10"
+                    :line-width="80"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost">
                     <template #default="{ context }">
                         <text-area-view :context="context" />
                     </template>
@@ -138,6 +166,20 @@
                     <template #default="{ context }"><font-icon-view :context="context" /></template>
                 </font-icon>
             </div>
+            <div class="container">
+                <radio-buttons-state
+                    :group="test"
+                    v-model="radioValue"
+                    :validators="checkBoxValidators"
+                    :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <radio-button-view :context="context" :value="10" title="Ten"></radio-button-view>
+                        <radio-button-view :context="context" :value="20" title="Twenty"></radio-button-view>
+                        <radio-button-view :context="context" :value="30" title="Thirty"></radio-button-view>
+                    </template>
+                </radio-buttons-state>
+                <span>Radio value: {{ radioValue }}</span>
+            </div>
         </template>
     </validate-host>
 </template>
@@ -154,13 +196,15 @@ module.exports = {
         return {
             text: `Muherka`,
             check1: false,
+            check2: null,
             textValue: ``,
             multiTextValue: `argyus`,
             checkBoxValidators: this.getCheckBoxValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
             selectedItem: [],
             isAllValidated: false,
-            number: 0
+            number: 0,
+            radioValue: null
         }
     },
     methods: {
@@ -206,7 +250,10 @@ module.exports = {
         'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
         'FontIcon': `remote:../../states/FontIconState.vue`,
         'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
-    }
+        'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
+        'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+        'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
+        'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,    }
 }
 </script>
 

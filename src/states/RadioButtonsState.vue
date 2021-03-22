@@ -6,14 +6,14 @@
 
 <script>
 module.exports = {
-    name: `CheckBoxTriState`,
+    name: `RadioButtonsState`,
     props: {
-        title: {
+        group: {
             type: String,
-            default: () => ``
+            required: true
         },
         value: {
-            type: Object,
+            type: [String, Number, Object],
             default: () => null
         },
         disable: {
@@ -30,12 +30,12 @@ module.exports = {
     },
     data() {
         return {
-            checked: null,
+            radioValue: false,
             isValid: false
         }
     },
     created() {
-        this.checked = this.value;
+        this.radioValue = this.value;
         this.validate();
     },
     methods: {
@@ -45,34 +45,25 @@ module.exports = {
             this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
-                if (!value.check(this.checked)) {
+                if (!value.check(this.radioValue)) {
                     this.isValid = false;
                     if (this.validateHost) this.validateHost.add(this, { rule: key, messages: value.messages });
                 }
             }
         },
-        toggle() {
+        select(value) {
+            debugger;
             if (this.disable) return;
 
-            switch (this.checked) {
-                case true:
-                    this.checked = null;
-                    break;
-                case false:
-                    this.checked = true;
-                    break;
-                default:
-                    this.checked = false;
-                    break;
-            }
+            this.radioValue = value;
 
             this.raiseEvents();
             this.validate();
         },
         raiseEvents() {
-            this.$emit(`checked`, this.checked); // added for separate v-model events and external events
-            this.$emit(`input`, this.checked);
-        }
+            this.$emit(`changed`, this.radioValue); // added for separate v-model events and external events
+            this.$emit(`input`, this.radioValue);
+        }        
     },
     watch: {
         value(newValue) {
