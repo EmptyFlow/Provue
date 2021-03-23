@@ -104,7 +104,7 @@
                 <dropdown-state class="full-width"
                     v-model="selectedItems"
                     :options="listItems"
-                    multiply
+                    multiple
                     @selected="listItemSelected($event)">
                     <template #default="{ context }">
                         <dropdown-view :context="context">
@@ -177,7 +177,6 @@
 //load bootstrap styles
 require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css`);
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
-// await require.resolveScripts(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
 module.exports = {  

@@ -19,7 +19,7 @@ module.exports = {
             type: Array,
             default: () => []
         },
-        multiply: {
+        multiple: {
             type: Boolean,
             default: () => false
         },
@@ -39,7 +39,7 @@ module.exports = {
         return {
             open: false,
             isValid: false,
-            selectedOptions: null
+            selectedOptions: new Set()
         }  
     },
     created() {
@@ -64,13 +64,7 @@ module.exports = {
         },
         setSelectedOptions(newValue) {
             this.selectedOptions = null;
-            const emptyMap = new Set();
-
-            if (this.multiply) this.selectedOptions = newValue ? new Set(newValue) : emptyMap;
-            else {
-                if (newValue) emptyMap.add(newValue);
-                this.selectedOptions = emptyMap;
-            }
+            this.selectedOptions = newValue ? new Set(this.multiple ? newValue : [newValue]) : new Set();
         },
         select($event) {
             if (this.disable) return;
@@ -79,15 +73,17 @@ module.exports = {
             if (selectedOptions.has($event)) {
                 selectedOptions.delete($event);
             } else {
-                if (!this.multiply) selectedOptions.clear();
+                if (!this.multiple) selectedOptions.clear();
                 selectedOptions.add($event);
             }
             if (this.autoClose) this.toggle();
+            
             this.selectedOptions = null;
             this.selectedOptions = selectedOptions;
 
             this.$emit(`selected`, $event);
-            this.$emit(`input`, this.multiply ? Array.from(this.selectedOptions) : this.selectedOptions.values().next().value || null);
+            const selected = Array.from(this.selectedOptions);
+            this.$emit(`input`, this.multiple ? selected : selected[0] || null);
 
             this.validate();
         }
