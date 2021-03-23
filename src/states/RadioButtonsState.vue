@@ -52,7 +52,6 @@ module.exports = {
             }
         },
         select(value) {
-            debugger;
             if (this.disable) return;
 
             this.radioValue = value;
