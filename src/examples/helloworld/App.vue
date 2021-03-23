@@ -103,11 +103,38 @@
                 </div>
             </div>
             <div class="container">
-                <text-box-state
-                    v-model="textValue"
-                    placeholder="Type text"
-                    :validators="checkBoxValidators"
+                {{selectedSingleItem}}
+                <dropdown-state class="full-width dropup"
+                    v-model="selectedSingleItem"
+                    :options="listItems"
+                    @selected="listItemSelected($event)"
+                    :validators="dropdownValidators" 
                     :validate-host="validatehost">
+                    <template #default="{ context }">
+                        <dropdown-view :context="context">
+                            <template #content="{ item }">
+                                <div>{{item.title}}</div>
+                            </template>
+                        </dropdown-view>
+                    </template>
+                </dropdown-state>
+                {{selectedItems}}
+                <dropdown-state class="full-width"
+                    v-model="selectedItems"
+                    :options="listItems"
+                    multiple
+                    @selected="listItemSelected($event)">
+                    <template #default="{ context }">
+                        <dropdown-view :context="context">
+                            <template #content="{ item }">
+                                <div>{{item.title}}</div>
+                            </template>
+                        </dropdown-view>
+                    </template>
+                </dropdown-state>
+            </div>
+            <div class="container">
+                <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
                     <template #default="{ context }">
                         <text-box-view :context="context" />
                     </template>
@@ -200,8 +227,11 @@ module.exports = {
             textValue: ``,
             multiTextValue: `argyus`,
             checkBoxValidators: this.getCheckBoxValidators(),
+            dropdownValidators: this.getDropdownValidators(),
             listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
             selectedItem: [],
+            selectedSingleItem: null,
+            selectedItems: [],
             isAllValidated: false,
             number: 0,
             radioValue: null
@@ -229,6 +259,22 @@ module.exports = {
                     messages: []
                 }
             }
+        },
+        getDropdownValidators() {
+            return {
+                'isNotSelected': {
+                    check(value) {
+                       if (!value || !value.length) {
+                           this.messages = ['Value is not selected!!'];
+                           return false;
+                       }
+
+                       this.messages = [];
+                       return true;
+                    },
+                    messages: []
+                }
+            }
         }
     },
     components: {
@@ -245,6 +291,8 @@ module.exports = {
         'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
         'TextAreaState': `remote:../../states/TextAreaState.vue`,
         'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+        'DropdownState': `remote:../../states/DropdownState.vue`,
+        'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
         'ValidateHost': `remote:../../states/ValidateHost.vue`,
         'NumberBox': `remote:../../states/NumberBoxState.vue`,
         'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
