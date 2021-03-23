@@ -10,16 +10,13 @@ module.exports = {
     data() {
         return {
             registerElements: new WeakMap(),
-            rules: new Set(),
             counter: 0,
             isValid: false
         }
     },
     methods: {
         clear(element) {
-            if (this.registerElements.delete(element)) {
-                this.counter--;
-            }
+            if (this.registerElements.delete(element)) this.counter--;
 
             this.checkIsValid();
         },
