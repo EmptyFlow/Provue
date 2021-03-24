@@ -6,6 +6,7 @@ function vuejsbootstraper() {
         innerDocument: document.implementation.createHTMLDocument(`Inner Document`),
         require: {}, // user need specify it directly!!!
         downloadingQueue: {},
+        globalComponents: {},
         install(Vue) {
             const self = this; 
 
@@ -43,11 +44,13 @@ function vuejsbootstraper() {
             Function(
                 `module`,
                 `require`,
+                `loadComponentGlobally`,
                 node.innerHTML
             ).call(
                 module.exports,
-                module,
-                this.require
+                module,                
+                this.require,
+                this.loadComponentGlobally.bind(this)
             );
             if (module.exports instanceof Function) module.exports = await module.exports();
 
@@ -109,14 +112,14 @@ function vuejsbootstraper() {
         async loadComponent(url) {
             const componentText = await this.download(url);
             if (!componentText.length) {
-                console.error(`vuejsbootstraper Downloaded component from ${url} is empty!`);
+                console.error(`vuejsbootstraper downloaded component from ${url} is empty!`);
                 return;
             }
 
             const { moduleExports, template } = await this.parseComponent(componentText, url);
 
             if (!moduleExports.name) {
-                console.error(`vuejsbootstraper Failed while extract component name from ${url}!`);
+                console.error(`vuejsbootstraper failed while extract component name from ${url}!`);
                 return;
             }
 
@@ -128,7 +131,11 @@ function vuejsbootstraper() {
             const component = await this.loadComponent(url);
             if (!component) return;
 
+            if (this.globalComponents[component.name]) return;
+            
             Vue.component(component.name, component);
+
+            this.globalComponents[component.name] = true;
         },
         loadComponentsGlobally(urls) {
             return Promise.all(urls.map(url => loadComponentGlobally(url)));

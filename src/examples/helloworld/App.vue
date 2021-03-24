@@ -195,7 +195,7 @@
             </div>
             <div class="container">
                 <radio-buttons-state
-                    :group="test"
+                    group="test"
                     v-model="radioValue"
                     :validators="checkBoxValidators"
                     :validate-host="validatehost">
@@ -207,6 +207,10 @@
                 </radio-buttons-state>
                 <span>Radio value: {{ radioValue }}</span>
             </div>
+            <div class="container">
+                <slider-demo>
+                </slider-demo>
+            </div>
         </template>
     </validate-host>
 </template>
@@ -217,7 +221,7 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-module.exports = {  
+module.exports = {
     name: `Boot`,
     data() {
         return {
@@ -234,7 +238,8 @@ module.exports = {
             selectedItems: [],
             isAllValidated: false,
             number: 0,
-            radioValue: null
+            radioValue: null,
+            sliderPosition: 100
         }
     },
     methods: {
@@ -248,13 +253,13 @@ module.exports = {
             return {
                 'isNotCheck': {
                     check(value) {
-                       if (!value) {
-                           this.messages = ['Value is not checked!!'];
-                           return false;
-                       }
+                    if (!value) {
+                        this.messages = ['Value is not checked!!'];
+                        return false;
+                    }
 
-                       this.messages = [];
-                       return true;
+                    this.messages = [];
+                    return true;
                     },
                     messages: []
                 }
@@ -264,13 +269,13 @@ module.exports = {
             return {
                 'isNotSelected': {
                     check(value) {
-                       if (!value || !value.length) {
-                           this.messages = ['Value is not selected!!'];
-                           return false;
-                       }
+                    if (!value || !value.length) {
+                        this.messages = ['Value is not selected!!'];
+                        return false;
+                    }
 
-                       this.messages = [];
-                       return true;
+                    this.messages = [];
+                    return true;
                     },
                     messages: []
                 }
@@ -301,7 +306,9 @@ module.exports = {
         'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
         'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
         'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
-        'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,    }
+        'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,
+        'SliderDemo': `remote:SliderDemo.vue`
+    }
 }
 </script>
 
