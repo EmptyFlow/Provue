@@ -5,7 +5,7 @@
         :type="context.type"
         :placeholder="context.placeholder"
         :value="context.text"
-        @input="context.type($event.target.value)"
+        @input="context.typeText($event.target.value)"
         :readonly="context.readOnly"
         :disabled="context.disable"
     />

@@ -59,7 +59,7 @@ module.exports = {
                 }
             }
         },
-        type(text) {
+        typeText(text) {
             if (this.disable) return;
 
             this.text = text;
