@@ -16,13 +16,13 @@ function vuejsbootstraper() {
                     for (let componentName in components) {
                         const component = components[componentName];
 
-                        if (typeof component === `string` && component.startsWith(`remote:`)) { 
-                            components[componentName] = () => self.loadComponent.call(self, component.replace(`remote:`, ``));
-                        }
+                        if (!(typeof component === `string` && component.startsWith(`remote:`))) continue;
+                        
+                        components[componentName] = () => self.loadComponent.call(self, component.replace(`remote:`, ``));
                     }
                 }
             });
-        },
+       },
         attachStyles(node, url) {
             if (this.alreadyUsedStyles[url]) return;
 
@@ -49,7 +49,7 @@ function vuejsbootstraper() {
                 module,
                 this.require
             );
-            if (module.exports instanceof Function) module.exports = await this.module.exports();
+            if (module.exports instanceof Function) module.exports = await module.exports();
 
             return module.exports;
         },
@@ -125,7 +125,7 @@ function vuejsbootstraper() {
             return moduleExports;
         },
         async loadComponentGlobally(url) {
-            const component = await loadComponent(url);
+            const component = await this.loadComponent(url);
             if (!component) return;
 
             Vue.component(component.name, component);
