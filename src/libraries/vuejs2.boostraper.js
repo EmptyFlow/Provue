@@ -44,13 +44,17 @@ function vuejsbootstraper() {
             Function(
                 `module`,
                 `require`,
-                `loadComponentGlobally`,
+                `globalComponent`,
+                `globalComponents`,
+                `remoteComponent`,
                 node.innerHTML
             ).call(
                 module.exports,
                 module,                
                 this.require,
-                this.loadComponentGlobally.bind(this)
+                this.loadComponentGlobally.bind(this),
+                this.loadComponentsGlobally.bind(this),
+                this.loadComponent.bind(this)
             );
             if (module.exports instanceof Function) module.exports = await module.exports();
 

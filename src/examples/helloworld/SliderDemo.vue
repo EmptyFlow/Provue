@@ -12,8 +12,8 @@
 
 <script>
 module.exports = async function() {
-    await loadComponentGlobally(`../../states/SliderState.vue`);
-    await loadComponentGlobally(`../../views/bootstrap/SliderView.vue`);
+    await globalComponent(`../../states/SliderState.vue`);
+    await globalComponent(`../../views/bootstrap/SliderView.vue`);
 
     return {
         name: `SliderDemo`,

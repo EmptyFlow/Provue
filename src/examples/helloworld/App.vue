@@ -221,93 +221,97 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-module.exports = {
-    name: `Boot`,
-    data() {
-        return {
-            text: `Muherka`,
-            check1: false,
-            check2: null,
-            textValue: ``,
-            multiTextValue: `argyus`,
-            checkBoxValidators: this.getCheckBoxValidators(),
-            dropdownValidators: this.getDropdownValidators(),
-            listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-            selectedItem: [],
-            selectedSingleItem: null,
-            selectedItems: [],
-            isAllValidated: false,
-            number: 0,
-            radioValue: null,
-            sliderPosition: 100
-        }
-    },
-    methods: {
-        test() {
-            alert(`Yahooo!!!`);
-        },
-        listItemSelected($event) {
-            console.log($event);
-        },
-        getCheckBoxValidators() {
-            return {
-                'isNotCheck': {
-                    check(value) {
-                    if (!value) {
-                        this.messages = ['Value is not checked!!'];
-                        return false;
-                    }
+module.exports = async function () {
+    const SliderDemo = await remoteComponent(`SliderDemo.vue`);
 
-                    this.messages = [];
-                    return true;
-                    },
-                    messages: []
+    return {
+        name: `Boot`,
+        data() {
+            return {
+                text: `Muherka`,
+                check1: false,
+                check2: null,
+                textValue: ``,
+                multiTextValue: `argyus`,
+                checkBoxValidators: this.getCheckBoxValidators(),
+                dropdownValidators: this.getDropdownValidators(),
+                listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
+                selectedItem: [],
+                selectedSingleItem: null,
+                selectedItems: [],
+                isAllValidated: false,
+                number: 0,
+                radioValue: null,
+                sliderPosition: 100
+            }
+        },
+        methods: {
+            test() {
+                alert(`Yahooo!!!`);
+            },
+            listItemSelected($event) {
+                console.log($event);
+            },
+            getCheckBoxValidators() {
+                return {
+                    'isNotCheck': {
+                        check(value) {
+                        if (!value) {
+                            this.messages = ['Value is not checked!!'];
+                            return false;
+                        }
+
+                        this.messages = [];
+                        return true;
+                        },
+                        messages: []
+                    }
+                }
+            },
+            getDropdownValidators() {
+                return {
+                    'isNotSelected': {
+                        check(value) {
+                        if (!value || !value.length) {
+                            this.messages = ['Value is not selected!!'];
+                            return false;
+                        }
+
+                        this.messages = [];
+                        return true;
+                        },
+                        messages: []
+                    }
                 }
             }
         },
-        getDropdownValidators() {
-            return {
-                'isNotSelected': {
-                    check(value) {
-                    if (!value || !value.length) {
-                        this.messages = ['Value is not selected!!'];
-                        return false;
-                    }
-
-                    this.messages = [];
-                    return true;
-                    },
-                    messages: []
-                }
-            }
+        components: {
+            'ButtonState': `remote:../../states/ButtonState.vue`,
+            'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
+            'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
+            'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
+            'ListBoxState': `remote:../../states/ListBoxState.vue`,
+            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+            'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
+            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+            'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
+            'TextBoxState': `remote:../../states/TextBoxState.vue`,
+            'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
+            'TextAreaState': `remote:../../states/TextAreaState.vue`,
+            'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+            'DropdownState': `remote:../../states/DropdownState.vue`,
+            'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
+            'ValidateHost': `remote:../../states/ValidateHost.vue`,
+            'NumberBox': `remote:../../states/NumberBoxState.vue`,
+            'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
+            'FontIcon': `remote:../../states/FontIconState.vue`,
+            'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
+            'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
+            'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+            'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
+            'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,
+            SliderDemo
         }
-    },
-    components: {
-        'ButtonState': `remote:../../states/ButtonState.vue`,
-        'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
-        'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
-        'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
-        'ListBoxState': `remote:../../states/ListBoxState.vue`,
-        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-        'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
-        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-        'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
-        'TextBoxState': `remote:../../states/TextBoxState.vue`,
-        'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
-        'TextAreaState': `remote:../../states/TextAreaState.vue`,
-        'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
-        'DropdownState': `remote:../../states/DropdownState.vue`,
-        'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
-        'ValidateHost': `remote:../../states/ValidateHost.vue`,
-        'NumberBox': `remote:../../states/NumberBoxState.vue`,
-        'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
-        'FontIcon': `remote:../../states/FontIconState.vue`,
-        'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
-        'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
-        'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
-        'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
-        'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,
-        'SliderDemo': `remote:SliderDemo.vue`
     }
 }
 </script>
