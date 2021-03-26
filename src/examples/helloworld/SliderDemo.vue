@@ -11,7 +11,7 @@
 </template>
 
 <script>
-module.exports = async function() {
+export default async function() {
     await globalComponent(`../../states/SliderState.vue`);
     await globalComponent(`../../views/bootstrap/SliderView.vue`);
 

@@ -194,18 +194,10 @@
                 </font-icon>
             </div>
             <div class="container">
-                <radio-buttons-state
-                    group="test"
-                    v-model="radioValue"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <radio-button-view :context="context" :value="10" title="Ten"></radio-button-view>
-                        <radio-button-view :context="context" :value="20" title="Twenty"></radio-button-view>
-                        <radio-button-view :context="context" :value="30" title="Thirty"></radio-button-view>
-                    </template>
-                </radio-buttons-state>
-                <span>Radio value: {{ radioValue }}</span>
+                <radio-button-demo
+                    :validate-host="validatehost"
+                    :validators="checkBoxValidators">
+                </radio-button-demo>
             </div>
             <div class="container">
                 <slider-demo>
@@ -221,8 +213,9 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-module.exports = async function () {
+export default async function () {
     const SliderDemo = await remoteComponent(`SliderDemo.vue`);
+    const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
 
     return {
         name: `Boot`,
@@ -240,9 +233,7 @@ module.exports = async function () {
                 selectedSingleItem: null,
                 selectedItems: [],
                 isAllValidated: false,
-                number: 0,
-                radioValue: null,
-                sliderPosition: 100
+                number: 0
             }
         },
         methods: {
@@ -308,8 +299,7 @@ module.exports = async function () {
             'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
             'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
             'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
-            'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
-            'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,
+            RadioButtonDemo,
             SliderDemo
         }
     }

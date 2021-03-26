@@ -40,6 +40,9 @@ function vuejsbootstraper() {
                 exports: {}
             };
 
+            // supporting export in ES6 module style (as sugar)
+            const script = node.innerHTML.replace(`export default `, `module.exports = `);
+
             //TODO: handle syntax errors!!!
             Function(
                 `module`,
@@ -47,7 +50,7 @@ function vuejsbootstraper() {
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,
-                node.innerHTML
+                script
             ).call(
                 module.exports,
                 module,                

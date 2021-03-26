@@ -16,7 +16,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
     name: `DropdownView`,
     props: {
         context: {
