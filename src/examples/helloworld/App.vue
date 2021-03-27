@@ -194,18 +194,14 @@
                 </font-icon>
             </div>
             <div class="container">
-                <radio-buttons-state
-                    :group="test"
-                    v-model="radioValue"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <radio-button-view :context="context" :value="10" title="Ten"></radio-button-view>
-                        <radio-button-view :context="context" :value="20" title="Twenty"></radio-button-view>
-                        <radio-button-view :context="context" :value="30" title="Thirty"></radio-button-view>
-                    </template>
-                </radio-buttons-state>
-                <span>Radio value: {{ radioValue }}</span>
+                <radio-button-demo
+                    :validate-host="validatehost"
+                    :validators="checkBoxValidators">
+                </radio-button-demo>
+            </div>
+            <div class="container">
+                <slider-demo>
+                </slider-demo>
             </div>
         </template>
     </validate-host>
@@ -217,91 +213,96 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-module.exports = {  
-    name: `Boot`,
-    data() {
-        return {
-            text: `Muherka`,
-            check1: false,
-            check2: null,
-            textValue: ``,
-            multiTextValue: `argyus`,
-            checkBoxValidators: this.getCheckBoxValidators(),
-            dropdownValidators: this.getDropdownValidators(),
-            listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-            selectedItem: [],
-            selectedSingleItem: null,
-            selectedItems: [],
-            isAllValidated: false,
-            number: 0,
-            radioValue: null
-        }
-    },
-    methods: {
-        test() {
-            alert(`Yahooo!!!`);
-        },
-        listItemSelected($event) {
-            console.log($event);
-        },
-        getCheckBoxValidators() {
-            return {
-                'isNotCheck': {
-                    check(value) {
-                       if (!value) {
-                           this.messages = ['Value is not checked!!'];
-                           return false;
-                       }
+export default async function () {
+    const SliderDemo = await remoteComponent(`SliderDemo.vue`);
+    const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
 
-                       this.messages = [];
-                       return true;
-                    },
-                    messages: []
+    return {
+        name: `Boot`,
+        data() {
+            return {
+                text: `Muherka`,
+                check1: false,
+                check2: null,
+                textValue: ``,
+                multiTextValue: `argyus`,
+                checkBoxValidators: this.getCheckBoxValidators(),
+                dropdownValidators: this.getDropdownValidators(),
+                listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
+                selectedItem: [],
+                selectedSingleItem: null,
+                selectedItems: [],
+                isAllValidated: false,
+                number: 0
+            }
+        },
+        methods: {
+            test() {
+                alert(`Yahooo!!!`);
+            },
+            listItemSelected($event) {
+                console.log($event);
+            },
+            getCheckBoxValidators() {
+                return {
+                    'isNotCheck': {
+                        check(value) {
+                        if (!value) {
+                            this.messages = ['Value is not checked!!'];
+                            return false;
+                        }
+
+                        this.messages = [];
+                        return true;
+                        },
+                        messages: []
+                    }
+                }
+            },
+            getDropdownValidators() {
+                return {
+                    'isNotSelected': {
+                        check(value) {
+                        if (!value || !value.length) {
+                            this.messages = ['Value is not selected!!'];
+                            return false;
+                        }
+
+                        this.messages = [];
+                        return true;
+                        },
+                        messages: []
+                    }
                 }
             }
         },
-        getDropdownValidators() {
-            return {
-                'isNotSelected': {
-                    check(value) {
-                       if (!value || !value.length) {
-                           this.messages = ['Value is not selected!!'];
-                           return false;
-                       }
-
-                       this.messages = [];
-                       return true;
-                    },
-                    messages: []
-                }
-            }
+        components: {
+            'ButtonState': `remote:../../states/ButtonState.vue`,
+            'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
+            'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
+            'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
+            'ListBoxState': `remote:../../states/ListBoxState.vue`,
+            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+            'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
+            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
+            'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
+            'TextBoxState': `remote:../../states/TextBoxState.vue`,
+            'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
+            'TextAreaState': `remote:../../states/TextAreaState.vue`,
+            'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+            'DropdownState': `remote:../../states/DropdownState.vue`,
+            'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
+            'ValidateHost': `remote:../../states/ValidateHost.vue`,
+            'NumberBox': `remote:../../states/NumberBoxState.vue`,
+            'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
+            'FontIcon': `remote:../../states/FontIconState.vue`,
+            'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
+            'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
+            'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+            RadioButtonDemo,
+            SliderDemo
         }
-    },
-    components: {
-        'ButtonState': `remote:../../states/ButtonState.vue`,
-        'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
-        'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
-        'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
-        'ListBoxState': `remote:../../states/ListBoxState.vue`,
-        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-        'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
-        'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-        'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
-        'TextBoxState': `remote:../../states/TextBoxState.vue`,
-        'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
-        'TextAreaState': `remote:../../states/TextAreaState.vue`,
-        'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
-        'DropdownState': `remote:../../states/DropdownState.vue`,
-        'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
-        'ValidateHost': `remote:../../states/ValidateHost.vue`,
-        'NumberBox': `remote:../../states/NumberBoxState.vue`,
-        'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
-        'FontIcon': `remote:../../states/FontIconState.vue`,
-        'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
-        'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
-        'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
-        'RadioButtonsState': `remote:../../states/RadioButtonsState.vue`,
-        'RadioButtonView': `remote:../../views/bootstrap/RadioButtonView.vue`,    }
+    }
 }
 </script>
 

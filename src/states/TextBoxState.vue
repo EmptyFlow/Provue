@@ -5,7 +5,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
     name: `TextBoxState`,
     props: {
         value: {
@@ -59,7 +59,7 @@ module.exports = {
                 }
             }
         },
-        type(text) {
+        typeText(text) {
             if (this.disable) return;
 
             this.text = text;

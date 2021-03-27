@@ -6,6 +6,7 @@ function vuejsbootstraper() {
         innerDocument: document.implementation.createHTMLDocument(`Inner Document`),
         require: {}, // user need specify it directly!!!
         downloadingQueue: {},
+        globalComponents: {},
         install(Vue) {
             const self = this; 
 
@@ -16,13 +17,13 @@ function vuejsbootstraper() {
                     for (let componentName in components) {
                         const component = components[componentName];
 
-                        if (typeof component === `string` && component.startsWith(`remote:`)) { 
-                            components[componentName] = () => self.loadComponent.call(self, component.replace(`remote:`, ``));
-                        }
+                        if (!(typeof component === `string` && component.startsWith(`remote:`))) continue;
+                        
+                        components[componentName] = () => self.loadComponent.call(self, component.replace(`remote:`, ``));
                     }
                 }
             });
-        },
+       },
         attachStyles(node, url) {
             if (this.alreadyUsedStyles[url]) return;
 
@@ -39,17 +40,26 @@ function vuejsbootstraper() {
                 exports: {}
             };
 
+            // supporting export in ES6 module style (as sugar)
+            const script = node.innerHTML.replace(`export default `, `module.exports = `);
+
             //TODO: handle syntax errors!!!
             Function(
                 `module`,
                 `require`,
-                node.innerHTML
+                `globalComponent`,
+                `globalComponents`,
+                `remoteComponent`,
+                script
             ).call(
                 module.exports,
-                module,
-                this.require
+                module,                
+                this.require,
+                this.loadComponentGlobally.bind(this),
+                this.loadComponentsGlobally.bind(this),
+                this.loadComponent.bind(this)
             );
-            if (module.exports instanceof Function) module.exports = await this.module.exports();
+            if (module.exports instanceof Function) module.exports = await module.exports();
 
             return module.exports;
         },
@@ -109,14 +119,14 @@ function vuejsbootstraper() {
         async loadComponent(url) {
             const componentText = await this.download(url);
             if (!componentText.length) {
-                console.error(`vuejsbootstraper Downloaded component from ${url} is empty!`);
+                console.error(`vuejsbootstraper downloaded component from ${url} is empty!`);
                 return;
             }
 
             const { moduleExports, template } = await this.parseComponent(componentText, url);
 
             if (!moduleExports.name) {
-                console.error(`vuejsbootstraper Failed while extract component name from ${url}!`);
+                console.error(`vuejsbootstraper failed while extract component name from ${url}!`);
                 return;
             }
 
@@ -125,10 +135,14 @@ function vuejsbootstraper() {
             return moduleExports;
         },
         async loadComponentGlobally(url) {
-            const component = await loadComponent(url);
+            const component = await this.loadComponent(url);
             if (!component) return;
 
+            if (this.globalComponents[component.name]) return;
+            
             Vue.component(component.name, component);
+
+            this.globalComponents[component.name] = true;
         },
         loadComponentsGlobally(urls) {
             return Promise.all(urls.map(url => loadComponentGlobally(url)));

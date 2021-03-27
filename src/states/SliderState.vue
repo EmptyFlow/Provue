@@ -6,15 +6,27 @@
 
 <script>
 export default {
-    name: `RadioButtonsState`,
+    name: `SliderState`,
     props: {
-        group: {
-            type: String,
-            required: true
-        },
         value: {
-            type: [String, Number, Object],
-            default: () => null
+            type: [Number, Array],
+            default: () => 0
+        },
+        isRange: {
+            type: Boolean,
+            default: () => false
+        },
+        minimum: {
+            type: Number,
+            default: () => 0
+        },
+        maximum: {
+            type: Number,
+            default: () => 100
+        },
+        step: {
+            type: Number,
+            default: () => 1
         },
         disable: {
             type: Boolean,
@@ -30,12 +42,12 @@ export default {
     },
     data() {
         return {
-            radioValue: false,
+            position: 0,
             isValid: false
         }
     },
     created() {
-        this.radioValue = this.value;
+        this.position = this.value;
         this.validate();
     },
     methods: {
@@ -45,28 +57,32 @@ export default {
             this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
-                if (!value.check(this.radioValue)) {
+                if (!value.check(this.position)) {
                     this.isValid = false;
                     if (this.validateHost) this.validateHost.add(this, { rule: key, messages: value.messages });
                 }
             }
         },
-        select(value) {
+        changePosition(position) {
             if (this.disable) return;
 
-            this.radioValue = value;
+            this.position = position ? parseFloat(position) : 0;
 
             this.raiseEvents();
             this.validate();
         },
         raiseEvents() {
-            this.$emit(`changed`, this.radioValue); // added for separate v-model events and external events
-            this.$emit(`input`, this.radioValue);
+            this.$emit(`changed`, this.position); // added for separate v-model events and external events
+            this.$emit(`input`, this.position);
         }        
     },
     watch: {
         value(newValue) {
-            this.checked = newValue;
+            if (this.isRange && Array.isArray(newValue) && newValue.length !== 2) {
+                console.warn(`SliderState: v-model value is array but don't have two values`);
+                return;
+            }
+            this.position = newValue;
             
             this.raiseEvents();
             this.validate();
