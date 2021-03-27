@@ -9,4 +9,4 @@ Set of components for build feature-rich modern web UI. There two category - con
 m
 
 ## Examples
-Hello world Demo - [link](http://localhost:5000/StaticFiles/examples/helloworld/index.html)
+Hello world Demo - [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/helloworld/index.html)
