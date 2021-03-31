@@ -35,7 +35,7 @@ function vuejsbootstraper() {
 
             this.alreadyUsedStyles[url] = true;
         },
-        async executeScripts(node) {
+        async executeScripts(node, url) {
             const module = {
                 exports: {}
             };
@@ -44,14 +44,16 @@ function vuejsbootstraper() {
             const script = node.innerHTML.replace(`export default `, `module.exports = `);
 
             //TODO: handle syntax errors!!!
-            Function(
+            const componentFunction  = Function(
                 `module`,
                 `require`,
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,
                 script
-            ).call(
+            );            
+            componentFunction.displayName = url.replace(`http://`, ``).replace(`https://`, ``).replace(/\.\./g, ``).replace(/\//g, ``);
+            componentFunction.call(
                 module.exports,
                 module,                
                 this.require,
@@ -59,7 +61,7 @@ function vuejsbootstraper() {
                 this.loadComponentsGlobally.bind(this),
                 this.loadComponent.bind(this)
             );
-            if (module.exports instanceof Function) module.exports = await module.exports();
+            if (module.exports instanceof Function) module.exports = await module.exports();            
 
             return module.exports;
         },
@@ -79,7 +81,7 @@ function vuejsbootstraper() {
                         template = this.parseTemplate(node);
                         break;
                     case `script`:
-                        moduleExports = await this.executeScripts(node);
+                        moduleExports = await this.executeScripts(node, url);
                         break;
                     case `style`:
                         this.attachStyles(node, url);
@@ -151,3 +153,6 @@ function vuejsbootstraper() {
 }
 
 const Vue2Bootstraper = vuejsbootstraper();
+
+// common.js export style
+if (typeof exports !== `undefined`) exports = Vue2Bootstraper;
