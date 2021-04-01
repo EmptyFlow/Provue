@@ -14,7 +14,7 @@
     </div>
 </template>
 
-<script>``
+<script>
 export default async function() {
     await globalComponent(`../../states/CheckBoxState.vue`);
     await globalComponent(`../../views/bootstrap/CheckBoxView.vue`);
