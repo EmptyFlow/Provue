@@ -129,6 +129,8 @@
                 <slider-demo>
                 </slider-demo>
             </div>
+            <progress-demo>
+            </progress-demo>
             <div class="container">
                 <span v-if="isAllValidated">All validated!!!</span>
                 <span v-else>Not valid!!!</span>
@@ -149,6 +151,7 @@ export default async function () {
     const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
     const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
     const CheckBoxDemo = await remoteComponent(`CheckBoxDemo.vue`);
+    const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
 
     return {
         name: `Boot`,
@@ -229,7 +232,8 @@ export default async function () {
             'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
             FontAwesomeDemo,
             RadioButtonDemo,
-            SliderDemo
+            SliderDemo,
+            ProgressDemo
         }
     }
 }
@@ -241,6 +245,7 @@ export default async function () {
     flex-direction: row;
     align-items: center;
     margin: 40px;
+    min-width: 100px;
 }
 .container > * {
     margin-left: 5px;;
