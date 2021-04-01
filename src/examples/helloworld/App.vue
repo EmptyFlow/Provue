@@ -2,19 +2,10 @@
     <validate-host @validatechanged="isAllValidated = $event">
         <template #default="{ validatehost }">
             <buttons-demo></buttons-demo>
-            <div class="container">
-                <check-box-state
-                    v-model="check1"
-                    title="Checkbox"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <check-box-view :context="context" />
-                    </template>
-                </check-box-state>
-                <span v-if="check1"> checked!!!!</span>
-                <span v-if="!check1"> not checked!!!!</span>
-            </div>
+            <check-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </check-box-demo>
             <div class="container">
                 <check-box-tri-state
                     v-model="check2"
@@ -157,13 +148,13 @@ export default async function () {
     const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
     const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
     const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
+    const CheckBoxDemo = await remoteComponent(`CheckBoxDemo.vue`);
 
     return {
         name: `Boot`,
         data() {
             return {
-                text: `Muherka`,
-                check1: false,
+                text: `Muherka`,                
                 check2: null,
                 textValue: ``,
                 multiTextValue: `argyus`,
@@ -219,8 +210,7 @@ export default async function () {
         },
         components: {
             ButtonsDemo,
-            'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
-            'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
+            CheckBoxDemo,
             'ListBoxState': `remote:../../states/ListBoxState.vue`,
             'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
             'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
