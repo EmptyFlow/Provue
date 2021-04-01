@@ -1,48 +1,7 @@
 <template>
     <validate-host @validatechanged="isAllValidated = $event">
         <template #default="{ validatehost }">
-            <div class="container">
-                <button-state @clicked="test()" title="Primary">
-                    <template #default="{ context }">
-                        <button-view :context="context" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Secondary">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="secondary" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Success">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="success" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Danger">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="danger" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Warning">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="warning" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Light">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="light" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Dark">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="dark" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Link">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="link" />
-                    </template>
-                </button-state>
-            </div>
+            <buttons-demo></buttons-demo>
             <div class="container">
                 <check-box-state
                     v-model="check1"
@@ -168,31 +127,7 @@
                 </number-box>
                 <span>Actual number value is {{ number }}</span>
             </div>
-            <div class="container">
-                <span v-if="isAllValidated">All validated!!!</span>
-                <span v-else>Not valid!!!</span>
-            </div>
-            <div class="container">
-                Font awesome icons: 
-                <font-icon
-                    group="fas"
-                    id="fa-address-card"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-                <font-icon
-                    group="fab"
-                    id="fa-amazon"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-                <font-icon
-                    group="fab"
-                    id="fa-google-play"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-            </div>
+            <font-awesome-demo></font-awesome-demo>
             <div class="container">
                 <radio-button-demo
                     :validate-host="validatehost"
@@ -202,6 +137,10 @@
             <div class="container">
                 <slider-demo>
                 </slider-demo>
+            </div>
+            <div class="container">
+                <span v-if="isAllValidated">All validated!!!</span>
+                <span v-else>Not valid!!!</span>
             </div>
         </template>
     </validate-host>
@@ -213,9 +152,11 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-export default async function () {
+export default async function () {    
     const SliderDemo = await remoteComponent(`SliderDemo.vue`);
     const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
+    const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
+    const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
 
     return {
         name: `Boot`,
@@ -277,8 +218,7 @@ export default async function () {
             }
         },
         components: {
-            'ButtonState': `remote:../../states/ButtonState.vue`,
-            'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
+            ButtonsDemo,
             'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
             'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
             'ListBoxState': `remote:../../states/ListBoxState.vue`,
@@ -295,10 +235,9 @@ export default async function () {
             'ValidateHost': `remote:../../states/ValidateHost.vue`,
             'NumberBox': `remote:../../states/NumberBoxState.vue`,
             'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
-            'FontIcon': `remote:../../states/FontIconState.vue`,
-            'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
             'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
             'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+            FontAwesomeDemo,
             RadioButtonDemo,
             SliderDemo
         }

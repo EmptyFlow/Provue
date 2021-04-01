@@ -116,6 +116,7 @@ function vuejsbootstraper() {
                 return content;
             } catch (e) {
                 console.error(`vuejsbootstraper.download Error while download component ${url} ${e}`);
+                delete this.downloadingQueue[url];
             }
         },
         async loadComponent(url) {

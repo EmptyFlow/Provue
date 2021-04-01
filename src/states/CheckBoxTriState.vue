@@ -13,7 +13,7 @@ export default {
             default: () => ``
         },
         value: {
-            type: Object,
+            type: [Object, Boolean],
             default: () => null
         },
         disable: {
