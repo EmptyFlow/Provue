@@ -1,27 +1,27 @@
 <template>
     <div class="container">
-        <check-box-tri-state
-            v-model="check"
-            title="CheckboxTriState"
+        <text-area-state
+            v-model="multiTextValue"
+            placeholder="Type multi text"
+            :count-lines="10"
+            :line-width="80"
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <check-box-tri-view :context="context" />
+                <text-area-view :context="context" />
             </template>
-        </check-box-tri-state>
-        <span v-if="check2"> checked!!!!</span>
-        <span v-if="check2 === false"> not checked!!!!</span>
-        <span v-if="check2 === null"> not defined!!!!</span>
+        </text-area-state>
+        <span> {{ multiTextValue }}</span>
     </div>
 </template>
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/CheckBoxTriState.vue`);
-    await globalComponent(`../../views/bootstrap/CheckBoxTriView.vue`);
+    await globalComponent(`../../states/TextAreaState.vue`);
+    await globalComponent(`../../views/bootstrap/TextAreaView.vue`);
 
     return {
-        name: `CheckBoxTriStateDemo`,
+        name: `TextAreaDemo`,
         props: {
             validateHost: {
                 type: Object,
@@ -34,7 +34,7 @@ export default async function() {
         },
         data() {
             return {
-                check: null
+                number: 0
             }
         }
     }

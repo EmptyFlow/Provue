@@ -81,20 +81,10 @@
                 </text-box-state>
                 <span> {{ textValue }}</span>
             </div>
-            <div class="container">
-                <text-area-state
-                    v-model="multiTextValue"
-                    placeholder="Type multi text"
-                    :count-lines="10"
-                    :line-width="80"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <text-area-view :context="context" />
-                    </template>
-                </text-area-state>
-                <span> {{ multiTextValue }}</span>
-            </div>
+            <text-area-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </text-area-demo>
             <number-box-demo
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
@@ -135,6 +125,7 @@ export default async function () {
     const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
     const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
     const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
+    const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
 
     return {
         name: `Boot`,
@@ -205,8 +196,7 @@ export default async function () {
             'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
             'TextBoxState': `remote:../../states/TextBoxState.vue`,
             'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
-            'TextAreaState': `remote:../../states/TextAreaState.vue`,
-            'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
+            TextAreaDemo,
             'DropdownState': `remote:../../states/DropdownState.vue`,
             'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
             'ValidateHost': `remote:../../states/ValidateHost.vue`,
