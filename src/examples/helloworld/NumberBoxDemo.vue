@@ -1,26 +1,26 @@
 <template>
     <div class="container">
-        <check-box-state
-            v-model="check1"
-            title="Checkbox"
+        <number-box-state
+            v-model="number"
+            placeholder="Type number"
             :validators="validators"
-            :validate-host="validateHost">
+            :validate-host="validateHost"
+            :maximum="100">
             <template #default="{ context }">
-                <check-box-view :context="context" />
+                <number-box-view :context="context" />
             </template>
-        </check-box-state>
-        <span v-if="check1"> checked!!!!</span>
-        <span v-if="!check1"> not checked!!!!</span>
+        </number-box-state>
+        <span>Actual number value is {{ number }}</span>
     </div>
 </template>
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/CheckBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/CheckBoxView.vue`);
+    await globalComponent(`../../states/NumberBoxState.vue`);
+    await globalComponent(`../../views/bootstrap/NumberBoxView.vue`);
 
     return {
-        name: `CheckBoxDemo`,
+        name: `NumberBoxDemo`,
         props: {
             validateHost: {
                 type: Object,
@@ -33,7 +33,7 @@ export default async function() {
         },
         data() {
             return {
-                check1: false
+                number: 0
             }
         }
     }

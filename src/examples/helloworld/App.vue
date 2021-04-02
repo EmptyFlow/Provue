@@ -6,20 +6,10 @@
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-demo>
-            <div class="container">
-                <check-box-tri-state
-                    v-model="check2"
-                    title="CheckboxTriState"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <check-box-tri-view :context="context" />
-                    </template>
-                </check-box-tri-state>
-                <span v-if="check2"> checked!!!!</span>
-                <span v-if="check2 === false"> not checked!!!!</span>
-                <span v-if="check2 === null"> not defined!!!!</span>
-            </div>
+            <check-box-tri-state-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </check-box-tri-state-demo>
             <div class="container">
                 <div class="stack">
                     <h3>Bootstrap</h3>
@@ -105,19 +95,10 @@
                 </text-area-state>
                 <span> {{ multiTextValue }}</span>
             </div>
-            <div class="container">
-                <number-box
-                    v-model="number"
-                    placeholder="Type number"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost"
-                    :maximum="100">
-                    <template #default="{ context }">
-                        <number-box-view :context="context" />
-                    </template>
-                </number-box>
-                <span>Actual number value is {{ number }}</span>
-            </div>
+            <number-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </number-box-demo>
             <font-awesome-demo></font-awesome-demo>
             <div class="container">
                 <radio-button-demo
@@ -152,6 +133,8 @@ export default async function () {
     const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
     const CheckBoxDemo = await remoteComponent(`CheckBoxDemo.vue`);
     const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
+    const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
+    const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
 
     return {
         name: `Boot`,
@@ -214,6 +197,7 @@ export default async function () {
         components: {
             ButtonsDemo,
             CheckBoxDemo,
+            CheckBoxTriStateDemo,
             'ListBoxState': `remote:../../states/ListBoxState.vue`,
             'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
             'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
@@ -226,10 +210,7 @@ export default async function () {
             'DropdownState': `remote:../../states/DropdownState.vue`,
             'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
             'ValidateHost': `remote:../../states/ValidateHost.vue`,
-            'NumberBox': `remote:../../states/NumberBoxState.vue`,
-            'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
-            'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
-            'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+            NumberBoxDemo,
             FontAwesomeDemo,
             RadioButtonDemo,
             SliderDemo,

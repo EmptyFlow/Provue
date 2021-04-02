@@ -1,26 +1,27 @@
 <template>
     <div class="container">
-        <check-box-state
-            v-model="check1"
-            title="Checkbox"
+        <check-box-tri-state
+            v-model="check"
+            title="CheckboxTriState"
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <check-box-view :context="context" />
+                <check-box-tri-view :context="context" />
             </template>
-        </check-box-state>
-        <span v-if="check1"> checked!!!!</span>
-        <span v-if="!check1"> not checked!!!!</span>
+        </check-box-tri-state>
+        <span v-if="check2"> checked!!!!</span>
+        <span v-if="check2 === false"> not checked!!!!</span>
+        <span v-if="check2 === null"> not defined!!!!</span>
     </div>
 </template>
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/CheckBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/CheckBoxView.vue`);
+    await globalComponent(`../../states/CheckBoxTriState.vue`);
+    await globalComponent(`../../views/bootstrap/CheckBoxTriView.vue`);
 
     return {
-        name: `CheckBoxDemo`,
+        name: `CheckBoxTriStateDemo`,
         props: {
             validateHost: {
                 type: Object,
@@ -33,7 +34,7 @@ export default async function() {
         },
         data() {
             return {
-                check1: false
+                check: false
             }
         }
     }
