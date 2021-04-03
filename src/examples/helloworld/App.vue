@@ -42,37 +42,10 @@
                     </list-box-state>
                 </div>
             </div>
-            <div class="container">
-                {{selectedSingleItem}}
-                <dropdown-state class="full-width dropup"
-                    v-model="selectedSingleItem"
-                    :options="listItems"
-                    @selected="listItemSelected($event)"
-                    :validators="dropdownValidators" 
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <dropdown-view :context="context">
-                            <template #content="{ item }">
-                                <div>{{item.title}}</div>
-                            </template>
-                        </dropdown-view>
-                    </template>
-                </dropdown-state>
-                {{selectedItems}}
-                <dropdown-state class="full-width"
-                    v-model="selectedItems"
-                    :options="listItems"
-                    multiple
-                    @selected="listItemSelected($event)">
-                    <template #default="{ context }">
-                        <dropdown-view :context="context">
-                            <template #content="{ item }">
-                                <div>{{item.title}}</div>
-                            </template>
-                        </dropdown-view>
-                    </template>
-                </dropdown-state>
-            </div>
+            <drop-down-demo
+                :validate-host="validatehost"
+                :validators="dropdownValidators">
+            </drop-down-demo>
             <div class="container">
                 <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
                     <template #default="{ context }">
@@ -126,6 +99,7 @@ export default async function () {
     const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
     const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
     const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
+    const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
 
     return {
         name: `Boot`,
@@ -134,21 +108,15 @@ export default async function () {
                 text: `Muherka`,                
                 check2: null,
                 textValue: ``,
-                multiTextValue: `argyus`,
                 checkBoxValidators: this.getCheckBoxValidators(),
                 dropdownValidators: this.getDropdownValidators(),
                 listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
                 selectedItem: [],
-                selectedSingleItem: null,
-                selectedItems: [],
                 isAllValidated: false,
                 number: 0
             }
         },
         methods: {
-            test() {
-                alert(`Yahooo!!!`);
-            },
             listItemSelected($event) {
                 console.log($event);
             },
@@ -197,8 +165,7 @@ export default async function () {
             'TextBoxState': `remote:../../states/TextBoxState.vue`,
             'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
             TextAreaDemo,
-            'DropdownState': `remote:../../states/DropdownState.vue`,
-            'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
+            DropDownDemo,
             'ValidateHost': `remote:../../states/ValidateHost.vue`,
             NumberBoxDemo,
             FontAwesomeDemo,

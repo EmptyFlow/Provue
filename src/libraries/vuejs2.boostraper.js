@@ -7,6 +7,7 @@ function vuejsbootstraper() {
         require: {}, // user need specify it directly!!!
         downloadingQueue: {},
         globalComponents: {},
+        globalComponentsUrls: {},
         install(Vue) {
             const self = this; 
 
@@ -138,13 +139,16 @@ function vuejsbootstraper() {
             return moduleExports;
         },
         async loadComponentGlobally(url) {
+            if (this.globalComponentsUrls[url]) return;
+
             const component = await this.loadComponent(url);
             if (!component) return;
 
             if (this.globalComponents[component.name]) return;
-            
+
             Vue.component(component.name, component);
 
+            this.globalComponentsUrls[url] = true;
             this.globalComponents[component.name] = true;
         },
         loadComponentsGlobally(urls) {

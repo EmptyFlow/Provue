@@ -34,7 +34,7 @@ export default async function() {
         },
         data() {
             return {
-                number: 0
+                multiTextValue: `argyus`
             }
         }
     }

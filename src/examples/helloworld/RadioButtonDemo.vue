@@ -21,7 +21,7 @@ export default async function() {
     await globalComponent(`../../views/bootstrap/RadioButtonView.vue`);
 
     return {
-        name: `SliderDemo`,
+        name: `RadioButtonDemo`,
         props: {
             validateHost: {
                 type: Object,

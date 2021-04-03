@@ -9,9 +9,9 @@
                 <check-box-tri-view :context="context" />
             </template>
         </check-box-tri-state>
-        <span v-if="check2"> checked!!!!</span>
-        <span v-if="check2 === false"> not checked!!!!</span>
-        <span v-if="check2 === null"> not defined!!!!</span>
+        <span v-if="check"> checked!!!!</span>
+        <span v-if="check === false"> not checked!!!!</span>
+        <span v-if="check === null"> not defined!!!!</span>
     </div>
 </template>
 
