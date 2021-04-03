@@ -4,15 +4,16 @@
         @dragenter="onDropEnter()"
         @dragleave="dropEnter = false"
         @drop.prevent="drop($event)">
-        <slot></slot>
+        <slot :context="this"></slot>
     </div>
 </template>
 
 <script>
-module.exports = {
+export default {
+    name: `DropTargetState`,
     props: {
         dataTypes: {
-            type: [],
+            type: Array,
             default: () => null
         },
         disable: {
@@ -35,7 +36,7 @@ module.exports = {
             this.dropEnter = false;
 
             const results = {};
-            for (const dataType in dataTypes) {
+            for (const dataType of this.dataTypes) {
                 const data = $event.dataTransfer.getData(dataType);
                 if (!data) continue;
                 

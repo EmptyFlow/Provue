@@ -46,6 +46,8 @@
                 <span v-if="isAllValidated">All validated!!!</span>
                 <span v-else>Not valid!!!</span>
             </div>
+            <drag-and-drop-demo>                
+            </drag-and-drop-demo>
         </template>
     </validate-host>
 </template>
@@ -70,6 +72,7 @@ export default async function () {
     const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
     const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
     const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`);
+    const DragAndDropDemo = await remoteComponent(`DragAndDropDemo.vue`);
 
     return {
         name: `Boot`,
@@ -127,7 +130,8 @@ export default async function () {
             FontAwesomeDemo,
             RadioButtonDemo,
             SliderDemo,
-            ProgressDemo
+            ProgressDemo,
+            DragAndDropDemo
         }
     }
 }
