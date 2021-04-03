@@ -8,7 +8,7 @@
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <text-area-view :context="context" />
+                <bootstrap-text-area-view :context="context" />
             </template>
         </text-area-state>
         <span> {{ multiTextValue }}</span>
@@ -18,7 +18,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/TextAreaState.vue`);
-    await globalComponent(`../../views/bootstrap/TextAreaView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapTextAreaView.vue`);
 
     return {
         name: `TextAreaDemo`,

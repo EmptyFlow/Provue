@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: `ButtonView`,
+    name: `BootstrapButtonView`,
     props: {
         appearance: {
             type: String,

@@ -6,7 +6,7 @@
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <text-box-view :context="context" />
+                <bootstrap-text-box-view :context="context" />
             </template>
         </text-box-state>
         <span> {{ textValue }}</span>
@@ -16,7 +16,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/TextBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/TextBoxView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapTextBoxView.vue`);
 
     return {
         name: `TextBoxDemo`,

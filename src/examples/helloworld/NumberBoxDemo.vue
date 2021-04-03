@@ -7,7 +7,7 @@
             :validate-host="validateHost"
             :maximum="100">
             <template #default="{ context }">
-                <number-box-view :context="context" />
+                <bootstrap-number-box-view :context="context" />
             </template>
         </number-box-state>
         <span>Actual number value is {{ number }}</span>
@@ -17,7 +17,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/NumberBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/NumberBoxView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapNumberBoxView.vue`);
 
     return {
         name: `NumberBoxDemo`,

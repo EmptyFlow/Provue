@@ -6,7 +6,7 @@
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <check-box-view :context="context" />
+                <bootstrap-check-box-view :context="context" />
             </template>
         </check-box-state>
         <span v-if="check1"> checked!!!!</span>
@@ -17,7 +17,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/CheckBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/CheckBoxView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapCheckBoxView.vue`);
 
     return {
         name: `CheckBoxDemo`,

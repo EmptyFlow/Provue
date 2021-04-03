@@ -7,11 +7,11 @@
                 :options="listItems"
                 @selected="listItemSelected($event)">
                 <template #default="{ context }">
-                    <list-box-view :context="context">
+                    <bootstrap-list-box-view :context="context">
                         <template #content="{ item }">
                             {{ item.title }}
                         </template>
-                    </list-box-view>
+                    </bootstrap-list-box-view>
                 </template>
             </list-box-state>
         </div>
@@ -36,7 +36,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/ListBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/ListBoxView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapListBoxView.vue`);
     await globalComponent(`../../views/material/MaterialListBoxView.vue`);
 
     return {

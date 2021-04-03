@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: `ProgressView`,
+    name: `BootstrapProgressView`,
     props: {
         context: {
             type: Object,

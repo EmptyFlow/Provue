@@ -6,7 +6,7 @@
             :validators="validators"
             :validate-host="validateHost">
             <template #default="{ context }">
-                <check-box-tri-view :context="context" />
+                <bootstrap-check-box-tri-view :context="context" />
             </template>
         </check-box-tri-state>
         <span v-if="check"> checked!!!!</span>
@@ -18,7 +18,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/CheckBoxTriState.vue`);
-    await globalComponent(`../../views/bootstrap/CheckBoxTriView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapCheckBoxTriView.vue`);
 
     return {
         name: `CheckBoxTriStateDemo`,

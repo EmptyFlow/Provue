@@ -8,11 +8,11 @@
             :validators="validators" 
             :validate-host="validateHost">
             <template #default="{ context }">
-                <dropdown-view :context="context">
+                <bootstrap-dropdown-view :context="context">
                     <template #content="{ item }">
                         <div>{{ item.title }}</div>
                     </template>
-                </dropdown-view>
+                </bootstrap-dropdown-view>
             </template>
         </dropdown-state>
         <span>{{ selectedItems }}</span>
@@ -22,11 +22,11 @@
             multiple
             @selected="listItemSelected($event)">
             <template #default="{ context }">
-                <dropdown-view :context="context">
+                <bootstrap-dropdown-view :context="context">
                     <template #content="{ item }">
                         <div>{{ item.title }}</div>
                     </template>
-                </dropdown-view>
+                </bootstrap-dropdown-view>
             </template>
         </dropdown-state>
     </div>
@@ -35,7 +35,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/DropdownState.vue`);
-    await globalComponent(`../../views/bootstrap/DropdownView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapDropdownView.vue`);
 
     return {
         name: `DropDownDemo`,

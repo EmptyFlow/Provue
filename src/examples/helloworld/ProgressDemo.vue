@@ -2,12 +2,12 @@
     <div class="progress-container">
         <progress-state v-model="percent">
             <template #default="{ context }">
-                <progress-view :context="context" />
+                <bootstrap-progress-view :context="context" />
             </template>
         </progress-state>
         <progress-state v-model="percent2">
             <template #default="{ context }">
-                <progress-view :context="context" />
+                <bootstrap-progress-view :context="context" />
             </template>
         </progress-state>
     </div>
@@ -16,7 +16,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/ProgressState.vue`);
-    await globalComponent(`../../views/bootstrap/ProgressView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapProgressView.vue`);
 
     return {
         name: `ProgressDemo`,
