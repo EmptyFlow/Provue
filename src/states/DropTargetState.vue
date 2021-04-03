@@ -36,6 +36,9 @@ module.exports = {
 
             const results = {};
             for (const dataType in dataTypes) {
+                const data = $event.dataTransfer.getData(dataType);
+                if (!data) continue;
+                
                 results[dataType] = JSON.parse($event.dataTransfer.getData(dataType));
             }
 
