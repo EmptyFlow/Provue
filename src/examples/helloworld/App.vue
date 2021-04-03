@@ -16,14 +16,11 @@
                 :validate-host="validatehost"
                 :validators="dropdownValidators">
             </drop-down-demo>
-            <div class="container">
-                <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <text-box-view :context="context" />
-                    </template>
-                </text-box-state>
-                <span> {{ textValue }}</span>
-            </div>
+            <text-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+
+            </text-box-demo>
             <text-area-demo
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
@@ -72,13 +69,12 @@ export default async function () {
     const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
     const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
     const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
+    const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`);
 
     return {
         name: `Boot`,
         data() {
             return {
-                text: `Muherka`,                
-                textValue: ``,
                 checkBoxValidators: this.getCheckBoxValidators(),
                 dropdownValidators: this.getDropdownValidators(),
                 isAllValidated: false
@@ -123,8 +119,7 @@ export default async function () {
             CheckBoxDemo,
             CheckBoxTriStateDemo,
             ListBoxDemo,
-            'TextBoxState': `remote:../../states/TextBoxState.vue`,
-            'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
+            TextBoxDemo,
             TextAreaDemo,
             DropDownDemo,
             ValidateHost,
