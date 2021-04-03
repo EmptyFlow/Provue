@@ -10,38 +10,8 @@
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-tri-state-demo>
-            <div class="container">
-                <div class="stack">
-                    <h3>Bootstrap</h3>
-                    <list-box-state 
-                        v-model="selectedItem"
-                        :options="listItems"
-                        @selected="listItemSelected($event)">
-                        <template #default="{ context }">
-                            <list-box-view :context="context">
-                                <template #content="{ item }">
-                                    {{item.title}}
-                                </template>
-                            </list-box-view>
-                        </template>
-                    </list-box-state>
-                </div>
-                <div class="stack">
-                    <h3>Material</h3>
-                    <list-box-state class="full-width "
-                        v-model="selectedItem"
-                        :options="listItems"
-                        @selected="listItemSelected($event)">
-                        <template #default="{ context }">
-                            <list-box-material :context="context">
-                                <template #content="{ item }">
-                                    <div>{{item.title}}</div>
-                                </template>
-                            </list-box-material>
-                        </template>
-                    </list-box-state>
-                </div>
-            </div>
+            <list-box-demo>
+            </list-box-demo>
             <drop-down-demo
                 :validate-host="validatehost"
                 :validators="dropdownValidators">
@@ -100,26 +70,21 @@ export default async function () {
     const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
     const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
     const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
+    const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
+    const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
 
     return {
         name: `Boot`,
         data() {
             return {
                 text: `Muherka`,                
-                check2: null,
                 textValue: ``,
                 checkBoxValidators: this.getCheckBoxValidators(),
                 dropdownValidators: this.getDropdownValidators(),
-                listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-                selectedItem: [],
-                isAllValidated: false,
-                number: 0
+                isAllValidated: false
             }
         },
         methods: {
-            listItemSelected($event) {
-                console.log($event);
-            },
             getCheckBoxValidators() {
                 return {
                     'isNotCheck': {
@@ -157,16 +122,12 @@ export default async function () {
             ButtonsDemo,
             CheckBoxDemo,
             CheckBoxTriStateDemo,
-            'ListBoxState': `remote:../../states/ListBoxState.vue`,
-            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-            'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
-            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-            'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
+            ListBoxDemo,
             'TextBoxState': `remote:../../states/TextBoxState.vue`,
             'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
             TextAreaDemo,
             DropDownDemo,
-            'ValidateHost': `remote:../../states/ValidateHost.vue`,
+            ValidateHost,
             NumberBoxDemo,
             FontAwesomeDemo,
             RadioButtonDemo,
@@ -187,12 +148,6 @@ export default async function () {
 }
 .container > * {
     margin-left: 5px;;
-}
-.stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 400px;
 }
 .full-width {
     width: 100%;

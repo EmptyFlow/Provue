@@ -12,7 +12,7 @@
 
 <script>
 module.exports = {
-    name: `ListBoxView`,
+    name: `MaterialListBoxView`,
     props: {
         context: {
             type: Object,
