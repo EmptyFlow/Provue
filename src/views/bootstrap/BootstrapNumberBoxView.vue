@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: `NumberBoxView`,
+    name: `BootstrapNumberBoxView`,
     props: {
         context: {
             type: Object,

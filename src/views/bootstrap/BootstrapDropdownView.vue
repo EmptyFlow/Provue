@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: `DropdownView`,
+    name: `BootstrapDropdownView`,
     props: {
         context: {
             type: Object,

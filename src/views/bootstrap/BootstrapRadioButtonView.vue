@@ -3,25 +3,32 @@
         <input
             class="form-check-input"
             :class="{ 'is-invalid': !context.isValid, 'is-valid': context.validators && context.isValid }"
-            type="checkbox"
-            :checked="context.checked"
-            @input="context.toggle()"
-            :disabled="context.disable"
-        >
+            type="radio"
+            :value="value"
+            @input="context.select(value)"
+            :name="context.group">
         <label
-            v-if="context.title"
+            v-if="title"
             class="form-check-label">
-            {{ context.title }}
+            {{ title }}
         </label>
     </div>
 </template>
 
 <script>
 export default {
-    name: `CheckBoxView`,
+    name: `BootstrapRadioButtonView`,
     props: {
         context: {
             type: Object,
+            required: true
+        },
+        title: {
+            type: String,
+            default: () => ``
+        },
+        value: {
+            type: [String, Number, Object],
             required: true
         }
     }

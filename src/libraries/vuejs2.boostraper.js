@@ -7,6 +7,7 @@ function vuejsbootstraper() {
         require: {}, // user need specify it directly!!!
         downloadingQueue: {},
         globalComponents: {},
+        globalComponentsUrls: {},
         install(Vue) {
             const self = this; 
 
@@ -35,7 +36,7 @@ function vuejsbootstraper() {
 
             this.alreadyUsedStyles[url] = true;
         },
-        async executeScripts(node) {
+        async executeScripts(node, url) {
             const module = {
                 exports: {}
             };
@@ -44,14 +45,16 @@ function vuejsbootstraper() {
             const script = node.innerHTML.replace(`export default `, `module.exports = `);
 
             //TODO: handle syntax errors!!!
-            Function(
+            const componentFunction = Function(
                 `module`,
                 `require`,
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,
                 script
-            ).call(
+            );            
+            componentFunction.displayName = url.replace(`http://`, ``).replace(`https://`, ``).replace(/\.\./g, ``).replace(/\//g, ``);
+            componentFunction.call(
                 module.exports,
                 module,                
                 this.require,
@@ -79,7 +82,7 @@ function vuejsbootstraper() {
                         template = this.parseTemplate(node);
                         break;
                     case `script`:
-                        moduleExports = await this.executeScripts(node);
+                        moduleExports = await this.executeScripts(node, url);
                         break;
                     case `style`:
                         this.attachStyles(node, url);
@@ -114,6 +117,7 @@ function vuejsbootstraper() {
                 return content;
             } catch (e) {
                 console.error(`vuejsbootstraper.download Error while download component ${url} ${e}`);
+                delete this.downloadingQueue[url];
             }
         },
         async loadComponent(url) {
@@ -135,13 +139,16 @@ function vuejsbootstraper() {
             return moduleExports;
         },
         async loadComponentGlobally(url) {
+            if (this.globalComponentsUrls[url]) return;
+
             const component = await this.loadComponent(url);
             if (!component) return;
 
             if (this.globalComponents[component.name]) return;
-            
+
             Vue.component(component.name, component);
 
+            this.globalComponentsUrls[url] = true;
             this.globalComponents[component.name] = true;
         },
         loadComponentsGlobally(urls) {
@@ -151,3 +158,6 @@ function vuejsbootstraper() {
 }
 
 const Vue2Bootstraper = vuejsbootstraper();
+
+// common.js export style
+if (typeof exports !== `undefined`) exports = Vue2Bootstraper;

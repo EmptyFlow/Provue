@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: `SliderView`,
+    name: `BootstrapSliderView`,
     props: {
         context: {
             type: Object,

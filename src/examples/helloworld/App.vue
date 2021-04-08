@@ -1,198 +1,35 @@
 <template>
     <validate-host @validatechanged="isAllValidated = $event">
         <template #default="{ validatehost }">
-            <div class="container">
-                <button-state @clicked="test()" title="Primary">
-                    <template #default="{ context }">
-                        <button-view :context="context" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Secondary">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="secondary" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Success">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="success" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Danger">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="danger" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Warning">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="warning" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Light">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="light" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Dark">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="dark" />
-                    </template>
-                </button-state>
-                <button-state @clicked="test()" title="Link">
-                    <template #default="{ context }">
-                        <button-view :context="context" appearance="link" />
-                    </template>
-                </button-state>
-            </div>
-            <div class="container">
-                <check-box-state
-                    v-model="check1"
-                    title="Checkbox"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <check-box-view :context="context" />
-                    </template>
-                </check-box-state>
-                <span v-if="check1"> checked!!!!</span>
-                <span v-if="!check1"> not checked!!!!</span>
-            </div>
-            <div class="container">
-                <check-box-tri-state
-                    v-model="check2"
-                    title="CheckboxTriState"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <check-box-tri-view :context="context" />
-                    </template>
-                </check-box-tri-state>
-                <span v-if="check2"> checked!!!!</span>
-                <span v-if="check2 === false"> not checked!!!!</span>
-                <span v-if="check2 === null"> not defined!!!!</span>
-            </div>
-            <div class="container">
-                <div class="stack">
-                    <h3>Bootstrap</h3>
-                    <list-box-state 
-                        v-model="selectedItem"
-                        :options="listItems"
-                        @selected="listItemSelected($event)">
-                        <template #default="{ context }">
-                            <list-box-view :context="context">
-                                <template #content="{ item }">
-                                    {{item.title}}
-                                </template>
-                            </list-box-view>
-                        </template>
-                    </list-box-state>
-                </div>
-                <div class="stack">
-                    <h3>Material</h3>
-                    <list-box-state class="full-width "
-                        v-model="selectedItem"
-                        :options="listItems"
-                        @selected="listItemSelected($event)">
-                        <template #default="{ context }">
-                            <list-box-material :context="context">
-                                <template #content="{ item }">
-                                    <div>{{item.title}}</div>
-                                </template>
-                            </list-box-material>
-                        </template>
-                    </list-box-state>
-                </div>
-            </div>
-            <div class="container">
-                {{selectedSingleItem}}
-                <dropdown-state class="full-width dropup"
-                    v-model="selectedSingleItem"
-                    :options="listItems"
-                    @selected="listItemSelected($event)"
-                    :validators="dropdownValidators" 
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <dropdown-view :context="context">
-                            <template #content="{ item }">
-                                <div>{{item.title}}</div>
-                            </template>
-                        </dropdown-view>
-                    </template>
-                </dropdown-state>
-                {{selectedItems}}
-                <dropdown-state class="full-width"
-                    v-model="selectedItems"
-                    :options="listItems"
-                    multiple
-                    @selected="listItemSelected($event)">
-                    <template #default="{ context }">
-                        <dropdown-view :context="context">
-                            <template #content="{ item }">
-                                <div>{{item.title}}</div>
-                            </template>
-                        </dropdown-view>
-                    </template>
-                </dropdown-state>
-            </div>
-            <div class="container">
-                <text-box-state v-model="textValue" placeholder="Type text" :validators="checkBoxValidators" :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <text-box-view :context="context" />
-                    </template>
-                </text-box-state>
-                <span> {{ textValue }}</span>
-            </div>
-            <div class="container">
-                <text-area-state
-                    v-model="multiTextValue"
-                    placeholder="Type multi text"
-                    :count-lines="10"
-                    :line-width="80"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost">
-                    <template #default="{ context }">
-                        <text-area-view :context="context" />
-                    </template>
-                </text-area-state>
-                <span> {{ multiTextValue }}</span>
-            </div>
-            <div class="container">
-                <number-box
-                    v-model="number"
-                    placeholder="Type number"
-                    :validators="checkBoxValidators"
-                    :validate-host="validatehost"
-                    :maximum="100">
-                    <template #default="{ context }">
-                        <number-box-view :context="context" />
-                    </template>
-                </number-box>
-                <span>Actual number value is {{ number }}</span>
-            </div>
-            <div class="container">
-                <span v-if="isAllValidated">All validated!!!</span>
-                <span v-else>Not valid!!!</span>
-            </div>
-            <div class="container">
-                Font awesome icons: 
-                <font-icon
-                    group="fas"
-                    id="fa-address-card"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-                <font-icon
-                    group="fab"
-                    id="fa-amazon"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-                <font-icon
-                    group="fab"
-                    id="fa-google-play"
-                    size="24px">
-                    <template #default="{ context }"><font-icon-view :context="context" /></template>
-                </font-icon>
-            </div>
+            <buttons-demo></buttons-demo>
+            <check-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </check-box-demo>
+            <check-box-tri-state-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </check-box-tri-state-demo>
+            <list-box-demo>
+            </list-box-demo>
+            <drop-down-demo
+                :validate-host="validatehost"
+                :validators="dropdownValidators">
+            </drop-down-demo>
+            <text-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+
+            </text-box-demo>
+            <text-area-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </text-area-demo>
+            <number-box-demo
+                :validate-host="validatehost"
+                :validators="checkBoxValidators">
+            </number-box-demo>
+            <font-awesome-demo></font-awesome-demo>
             <div class="container">
                 <radio-button-demo
                     :validate-host="validatehost"
@@ -203,6 +40,14 @@
                 <slider-demo>
                 </slider-demo>
             </div>
+            <progress-demo>
+            </progress-demo>
+            <div class="container">
+                <span v-if="isAllValidated">All validated!!!</span>
+                <span v-else>Not valid!!!</span>
+            </div>
+            <drag-and-drop-demo>                
+            </drag-and-drop-demo>
         </template>
     </validate-host>
 </template>
@@ -213,36 +58,32 @@ require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/c
 require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
 require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
 
-export default async function () {
+export default async function () {    
     const SliderDemo = await remoteComponent(`SliderDemo.vue`);
     const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
+    const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
+    const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
+    const CheckBoxDemo = await remoteComponent(`CheckBoxDemo.vue`);
+    const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
+    const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
+    const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
+    const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
+    const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
+    const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
+    const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
+    const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`);
+    const DragAndDropDemo = await remoteComponent(`DragAndDropDemo.vue`);
 
     return {
         name: `Boot`,
         data() {
             return {
-                text: `Muherka`,
-                check1: false,
-                check2: null,
-                textValue: ``,
-                multiTextValue: `argyus`,
                 checkBoxValidators: this.getCheckBoxValidators(),
                 dropdownValidators: this.getDropdownValidators(),
-                listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
-                selectedItem: [],
-                selectedSingleItem: null,
-                selectedItems: [],
-                isAllValidated: false,
-                number: 0
+                isAllValidated: false
             }
         },
         methods: {
-            test() {
-                alert(`Yahooo!!!`);
-            },
-            listItemSelected($event) {
-                console.log($event);
-            },
             getCheckBoxValidators() {
                 return {
                     'isNotCheck': {
@@ -277,30 +118,20 @@ export default async function () {
             }
         },
         components: {
-            'ButtonState': `remote:../../states/ButtonState.vue`,
-            'ButtonView': `remote:../../views/bootstrap/ButtonView.vue`,
-            'CheckBoxState': `remote:../../states/CheckBoxState.vue`,
-            'CheckBoxView': `remote:../../views/bootstrap/CheckBoxView.vue`,
-            'ListBoxState': `remote:../../states/ListBoxState.vue`,
-            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-            'ListBoxItemState': `remote:../../states/ListBoxItemState.vue`,
-            'ListBoxView': `remote:../../views/bootstrap/ListBoxView.vue`,
-            'ListBoxMaterial': `remote:../../views/material/ListBoxView.vue`,
-            'TextBoxState': `remote:../../states/TextBoxState.vue`,
-            'TextBoxView': `remote:../../views/bootstrap/TextBoxView.vue`,
-            'TextAreaState': `remote:../../states/TextAreaState.vue`,
-            'TextAreaView': `remote:../../views/bootstrap/TextAreaView.vue`,
-            'DropdownState': `remote:../../states/DropdownState.vue`,
-            'DropdownView': `remote:../../views/bootstrap/DropdownView.vue`,
-            'ValidateHost': `remote:../../states/ValidateHost.vue`,
-            'NumberBox': `remote:../../states/NumberBoxState.vue`,
-            'NumberBoxView': `remote:../../views/bootstrap/NumberBoxView.vue`,
-            'FontIcon': `remote:../../states/FontIconState.vue`,
-            'FontIconView': `remote:../../views/fontawesome/FontIconView.vue`,
-            'CheckBoxTriView': `remote:../../views/bootstrap/CheckBoxTriView.vue`,
-            'CheckBoxTriState': `remote:../../states/CheckBoxTriState.vue`,
+            ButtonsDemo,
+            CheckBoxDemo,
+            CheckBoxTriStateDemo,
+            ListBoxDemo,
+            TextBoxDemo,
+            TextAreaDemo,
+            DropDownDemo,
+            ValidateHost,
+            NumberBoxDemo,
+            FontAwesomeDemo,
             RadioButtonDemo,
-            SliderDemo
+            SliderDemo,
+            ProgressDemo,
+            DragAndDropDemo
         }
     }
 }
@@ -312,15 +143,10 @@ export default async function () {
     flex-direction: row;
     align-items: center;
     margin: 40px;
+    min-width: 100px;
 }
 .container > * {
     margin-left: 5px;;
-}
-.stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 400px;
 }
 .full-width {
     width: 100%;

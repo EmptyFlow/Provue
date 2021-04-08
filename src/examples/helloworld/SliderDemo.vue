@@ -3,7 +3,7 @@
         <slider-state
             v-model="sliderPosition">
             <template #default="{ context }">
-                <slider-view :context="context" />
+                <bootstrap-slider-view :context="context" />
             </template>
         </slider-state>
         <span>Slider value: {{ sliderPosition }}</span>
@@ -13,7 +13,7 @@
 <script>
 export default async function() {
     await globalComponent(`../../states/SliderState.vue`);
-    await globalComponent(`../../views/bootstrap/SliderView.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapSliderView.vue`);
 
     return {
         name: `SliderDemo`,

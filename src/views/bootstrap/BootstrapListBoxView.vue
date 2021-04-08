@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: `ListBoxView`,
+    name: `BootstrapListBoxView`,
     props: {
         context: {
             type: Object,
