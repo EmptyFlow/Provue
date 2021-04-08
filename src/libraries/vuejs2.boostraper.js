@@ -45,7 +45,7 @@ function vuejsbootstraper() {
             const script = node.innerHTML.replace(`export default `, `module.exports = `);
 
             //TODO: handle syntax errors!!!
-            const componentFunction  = Function(
+            const componentFunction = Function(
                 `module`,
                 `require`,
                 `globalComponent`,
@@ -62,7 +62,7 @@ function vuejsbootstraper() {
                 this.loadComponentsGlobally.bind(this),
                 this.loadComponent.bind(this)
             );
-            if (module.exports instanceof Function) module.exports = await module.exports();            
+            if (module.exports instanceof Function) module.exports = await module.exports();
 
             return module.exports;
         },
