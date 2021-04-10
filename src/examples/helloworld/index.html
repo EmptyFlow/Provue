@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <!-- <script src="../../libraries/vue.js"></script> -->
         <script src="../../libraries/vuejs2.boostraper.js"></script>
         <script src="../../libraries/resolveDependencies.js"></script>
     </head>
@@ -21,7 +22,7 @@
                     el: `#app`,
                     template: `<boot></boot>`,
                     components: {
-                        Boot: `remote:App.vue`
+                        Boot: () => Vue2Bootstraper.loadComponent(`App.vue`)
                     }
                 }
             );
