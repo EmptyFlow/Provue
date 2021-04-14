@@ -62,7 +62,7 @@ export default async function () {
     require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
     //load fontawesome fonts
     require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
-
+    //load script and map to alias `boostrap` after it you can use - const bootstrap = await require.loadScript(`boostrap`);
     await require.loadScript(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js`, `boostrap`);
 
     const SliderDemo = await remoteComponent(`SliderDemo.vue`);

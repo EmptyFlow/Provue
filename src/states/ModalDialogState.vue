@@ -8,10 +8,6 @@
 export default {
     name: `ModalDialogState`,
     props: {
-        opened: {
-            type: Boolean,
-            default: () => false
-        },
         title: {
             type: String,
             default: () => ``
@@ -19,6 +15,7 @@ export default {
     },
     data() {
         return {
+            opened: false,
             handlers: {
                 openedChanged: null
             }
@@ -41,14 +38,14 @@ export default {
 
             this.runCallback();
 
-            this.emit(`opened`);
+            this.$emit(`opened`);
         },
         close(result) {
             this.opened = false;
 
             this.runCallback();
 
-            this.emit(`closed`, result);
+            this.$emit(`closed`, result);
         },
         toggle() {
             if (this.opened) {
