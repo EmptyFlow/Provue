@@ -36,3 +36,15 @@ As example:
 ```
 ### Script guidelines
 #### Export component
+You can use modern es6 export for component in script section:
+```js
+export default {
+    name: `TestState`,
+}
+```
+But you need aware that it syntax sugar. It will be replaced on:
+```js
+module.exports = {
+    name: `TestState`,
+}
+```
