@@ -27,6 +27,7 @@
             </div>
             <buttons-demo :theme="theme"></buttons-demo>
             <check-box-demo
+                :theme="theme"
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-demo>
