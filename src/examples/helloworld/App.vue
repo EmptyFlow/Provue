@@ -1,7 +1,31 @@
 <template>
     <validate-host @validatechanged="isAllValidated = $event">
         <template #default="{ validatehost }">
-            <buttons-demo></buttons-demo>
+            <div class="container">
+                Select&nbsp;
+                <button-state
+                    @clicked="theme = `bootstrap`"
+                    title="Bootstrap Theme">
+                    <template #default="{ context }">
+                        <bootstrap-button-view
+                            appearance="primary"
+                            :context="context"
+                        />
+                    </template>
+                </button-state>
+                &nbsp;or&nbsp;
+                <button-state
+                    @clicked="theme = `material`"
+                    title="Material Theme">
+                    <template #default="{ context }">
+                        <bootstrap-button-view
+                            appearance="primary"
+                            :context="context"
+                        />
+                    </template>
+                </button-state>
+            </div>
+            <buttons-demo :theme="theme"></buttons-demo>
             <check-box-demo
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
@@ -65,6 +89,8 @@ export default async function () {
     //load script and map to alias `boostrap` after it you can use - const bootstrap = await require.loadScript(`boostrap`);
     await require.loadScript(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js`, `boostrap`);
 
+    await globalComponent(`../../states/ButtonState.vue`);
+    await globalComponent(`../../views/bootstrap/BootstrapButtonView.vue`);
     const SliderDemo = await remoteComponent(`SliderDemo.vue`);
     const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
     const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
@@ -79,7 +105,7 @@ export default async function () {
     const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
     const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`);
     const DragAndDropDemo = await remoteComponent(`DragAndDropDemo.vue`);
-    const ModalDialogDemo = await remoteComponent(`ModalDialogDemo.vue`);
+    const ModalDialogDemo = await remoteComponent(`ModalDialogDemo.vue`);    
 
     return {
         name: `Boot`,
@@ -87,7 +113,8 @@ export default async function () {
             return {
                 checkBoxValidators: this.getCheckBoxValidators(),
                 dropdownValidators: this.getDropdownValidators(),
-                isAllValidated: false
+                isAllValidated: false,
+                theme: `bootstrap`
             }
         },
         methods: {
