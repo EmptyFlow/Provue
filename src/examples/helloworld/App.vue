@@ -31,7 +31,8 @@
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-demo>
-            <check-box-tri-state-demo
+            <check-box-tri-state-demo 
+                :theme="theme"
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-tri-state-demo>
