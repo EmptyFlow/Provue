@@ -36,7 +36,8 @@
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </check-box-tri-state-demo>
-            <list-box-demo>
+            <list-box-demo
+                :theme="theme">
             </list-box-demo>
             <drop-down-demo
                 :validate-host="validatehost"
