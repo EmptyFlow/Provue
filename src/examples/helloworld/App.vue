@@ -44,23 +44,24 @@
                 :validators="dropdownValidators">
             </drop-down-demo>
             <text-box-demo
+                :theme="theme"
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
-
             </text-box-demo>
             <text-area-demo
+                :theme="theme"
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </text-area-demo>
             <number-box-demo
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
-            </number-box-demo>
+            </number-box-demo> 
             <font-awesome-demo></font-awesome-demo>
             <div class="container">
                 <radio-button-demo
                     :validate-host="validatehost"
-                    :validators="checkBoxValidators">
+                    :validators="checkBoxValidators"> 
                 </radio-button-demo>
             </div>
             <div class="container">
