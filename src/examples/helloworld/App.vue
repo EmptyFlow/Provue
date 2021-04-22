@@ -54,6 +54,7 @@
                 :validators="checkBoxValidators">
             </text-area-demo>
             <number-box-demo
+                :theme="theme"
                 :validate-host="validatehost"
                 :validators="checkBoxValidators">
             </number-box-demo> 
