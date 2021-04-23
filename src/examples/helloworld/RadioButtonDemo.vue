@@ -1,6 +1,7 @@
 <template>
     <div>
         <radio-buttons-state
+            v-if="theme === `bootstrap`"
             group="test"
             v-model="radioValue"
             :validators="validators"
@@ -11,7 +12,24 @@
                 <bootstrap-radio-button-view :context="context" :value="30" title="Thirty"></bootstrap-radio-button-view>
             </template>
         </radio-buttons-state>
-        <span>Radio value: {{ radioValue }}</span>
+        <span v-if="theme === `bootstrap`">
+            Radio value: {{ radioValue }}
+        </span>
+        <radio-buttons-state
+            v-if="theme === `material`"
+            group="test2"
+            v-model="materialRadioValue"
+            :validators="validators"
+            :validate-host="validateHost">
+            <template #default="{ context }">
+                <material-radio-button-view :context="context" :value="10" title="Ten"></material-radio-button-view>
+                <material-radio-button-view :context="context" :value="20" title="Twenty"></material-radio-button-view>
+                <material-radio-button-view :context="context" :value="30" title="Thirty"></material-radio-button-view>
+            </template>
+        </radio-buttons-state>
+        <span v-if="theme === `material`">
+            Radio value: {{ materialRadioValue }}
+        </span>
     </div>
 </template>
 
@@ -19,10 +37,15 @@
 export default async function() {
     await globalComponent(`../../states/RadioButtonsState.vue`);
     await globalComponent(`../../views/bootstrap/BootstrapRadioButtonView.vue`);
+    await globalComponent(`../../views/material/MaterialRadioButtonView.vue`);
 
     return {
         name: `RadioButtonDemo`,
         props: {
+            theme: {
+                type: String,
+                default: () => `bootstrap`
+            },
             validateHost: {
                 type: Object,
                 required: true
@@ -34,7 +57,8 @@ export default async function() {
         },
         data() {
             return {
-                radioValue: null
+                radioValue: null,
+                materialRadioValue: null
             }
         }
     }

@@ -61,12 +61,14 @@
             <font-awesome-demo></font-awesome-demo>
             <div class="container">
                 <radio-button-demo
+                    :theme="theme"
                     :validate-host="validatehost"
                     :validators="checkBoxValidators"> 
                 </radio-button-demo>
             </div>
             <div class="container">
-                <slider-demo>
+                <slider-demo
+                    :theme="theme">
                 </slider-demo>
             </div>
             <progress-demo>
