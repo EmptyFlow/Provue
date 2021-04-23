@@ -65,8 +65,11 @@ export default {
         },
         changePosition(position) {
             if (this.disable) return;
-
-            this.position = position ? parseFloat(position) : 0;
+            
+            let preparedPosition = position ? parseFloat(position) : 0;
+            if (preparedPosition < this.minimum) preparedPosition = this.minimum;
+            if (preparedPosition > this.maximum) preparedPosition = this.maximum;
+            this.position = preparedPosition;
 
             this.raiseEvents();
             this.validate();
