@@ -27,9 +27,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/TextBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapTextBoxView.vue`);
-    await globalComponent(`../../views/material/MaterialTextBoxView.vue`);
+    await globalComponents([`../../states/TextBoxState.vue`, `../../views/bootstrap/BootstrapTextBoxView.vue`, `../../views/material/MaterialTextBoxView.vue`]);
 
     return {
         name: `TextBoxDemo`,
