@@ -37,9 +37,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/TextAreaState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapTextAreaView.vue`);
-    await globalComponent(`../../views/material/MaterialTextAreaView.vue`);
+    await globalComponents([`../../states/TextAreaState.vue`, `../../views/bootstrap/BootstrapTextAreaView.vue`, `../../views/material/MaterialTextAreaView.vue`]);
 
     return {
         name: `TextAreaDemo`,
