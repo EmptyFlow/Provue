@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div class="stack">
-            <h3>Bootstrap</h3>
+        <div v-if="theme === `bootstrap`" class="stack">
             <list-box-state 
                 v-model="selectedItem"
                 :options="listItems"
@@ -15,8 +14,7 @@
                 </template>
             </list-box-state>
         </div>
-        <div class="stack">
-            <h3>Material</h3>
+        <div v-if="theme === `material`" class="stack">
             <list-box-state class="full-width "
                 v-model="selectedItem"
                 :options="listItems"
@@ -41,6 +39,12 @@ export default async function() {
 
     return {
         name: `ListBoxDemo`,
+        props: {
+            theme: {
+                type: String,
+                default: () => `bootstrap`
+            }
+        },
         data() {
             return {
                 listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],

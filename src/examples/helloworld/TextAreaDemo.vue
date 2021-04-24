@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <text-area-state
+            v-if="theme === `bootstrap`"
             v-model="multiTextValue"
             placeholder="Type multi text"
             :count-lines="10"
@@ -11,7 +12,26 @@
                 <bootstrap-text-area-view :context="context" />
             </template>
         </text-area-state>
-        <span> {{ multiTextValue }}</span>
+        <span
+            v-if="theme === `bootstrap`">
+            {{ multiTextValue }}
+        </span>
+        <text-area-state
+            v-if="theme === `material`"
+            v-model="maretialMultiTextValue"
+            placeholder="Type multi text"
+            :count-lines="10"
+            :line-width="80"
+            :validators="validators"
+            :validate-host="validateHost">
+            <template #default="{ context }">
+                <material-text-area-view :context="context" />
+            </template>
+        </text-area-state> 
+        <span
+            v-if="theme === `material`">
+            {{ maretialMultiTextValue }}
+        </span>
     </div>
 </template>
 
@@ -19,10 +39,15 @@
 export default async function() {
     await globalComponent(`../../states/TextAreaState.vue`);
     await globalComponent(`../../views/bootstrap/BootstrapTextAreaView.vue`);
+    await globalComponent(`../../views/Material/MaterialTextAreaView.vue`);
 
     return {
         name: `TextAreaDemo`,
         props: {
+            theme: {
+                type: String,
+                default: () => `bootstrap`
+            },                        
             validateHost: {
                 type: Object,
                 required: true
@@ -34,7 +59,8 @@ export default async function() {
         },
         data() {
             return {
-                multiTextValue: `argyus`
+                multiTextValue: `argyus`,
+                maretialMultiTextValue: `argyus2`,
             }
         }
     }
