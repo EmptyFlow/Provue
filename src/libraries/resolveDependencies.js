@@ -16,7 +16,7 @@ function dependencyResolver() {
             const script = await response.text();
 
             const module = { exports: {} };
-            Function("exports", "require", "module", script).call(module.exports, module.exports, dependencyResolver, module);
+            Function(`exports`, `require`, `module`, script).call(module.exports, module.exports, dependencyResolver, module);
             if (alias) {
                 this.globalAliases[alias] = module.exports;
             } else {
@@ -31,7 +31,7 @@ function dependencyResolver() {
             const isCache = this.loadedStyles[url];
             if (isCache) return isCache;
         
-            const link = document.createElement("link");           
+            const link = document.createElement(`link`);
             link.href = url;
             link.rel = `stylesheet`;
 
