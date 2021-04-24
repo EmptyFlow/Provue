@@ -35,9 +35,7 @@
 
 <script>``
 export default async function() {
-    await globalComponent(`../../states/RadioButtonsState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapRadioButtonView.vue`);
-    await globalComponent(`../../views/material/MaterialRadioButtonView.vue`);
+    await globalComponents([`../../states/RadioButtonsState.vue`, `../../views/bootstrap/BootstrapRadioButtonView.vue`, `../../views/material/MaterialRadioButtonView.vue`]);
 
     return {
         name: `RadioButtonDemo`,

@@ -24,8 +24,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/FontIconState.vue`);
-    await globalComponent(`../../views/fontawesome/FontIconView.vue`);
+    await globalComponents([`../../states/FontIconState.vue`, `../../views/fontawesome/FontIconView.vue`]);
 
     return {
         name: `FontAwesomeDemo`,

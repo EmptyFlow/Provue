@@ -28,9 +28,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/NumberBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapNumberBoxView.vue`);
-    await globalComponent(`../../views/material/MaterialNumberBoxView.vue`);
+    await globalComponents([`../../states/NumberBoxState.vue`, `../../views/bootstrap/BootstrapNumberBoxView.vue`, `../../views/material/MaterialNumberBoxView.vue`]);
 
     return {
         name: `NumberBoxDemo`,

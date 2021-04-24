@@ -26,8 +26,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/ModalDialogState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapModalDialogView.vue`);
+    await globalComponents([`../../states/ModalDialogState.vue`, `../../views/bootstrap/BootstrapModalDialogView.vue`]);
 
     return {
         name: `ModalDialogDemo`

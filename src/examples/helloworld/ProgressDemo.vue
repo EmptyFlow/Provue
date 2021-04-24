@@ -15,8 +15,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/ProgressState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapProgressView.vue`);
+    await globalComponents([`../../states/ProgressState.vue`, `../../views/bootstrap/BootstrapProgressView.vue`]);
 
     return {
         name: `ProgressDemo`,

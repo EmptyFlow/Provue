@@ -33,9 +33,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/ListBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapListBoxView.vue`);
-    await globalComponent(`../../views/material/MaterialListBoxView.vue`);
+    await globalComponents([`../../states/ListBoxState.vue`, `../../views/bootstrap/BootstrapListBoxView.vue`, `../../views/material/MaterialListBoxView.vue`]);
 
     return {
         name: `ListBoxDemo`,

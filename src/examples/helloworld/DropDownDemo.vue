@@ -34,8 +34,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/DropdownState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapDropdownView.vue`);
+    await globalComponents([`../../states/DropdownState.vue`, `../../views/bootstrap/BootstrapDropdownView.vue`]);
 
     return {
         name: `DropDownDemo`,
