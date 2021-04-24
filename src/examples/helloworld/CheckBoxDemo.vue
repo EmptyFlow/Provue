@@ -29,9 +29,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/CheckBoxState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapCheckBoxView.vue`);
-    await globalComponent(`../../views/material/MaterialCheckBoxView.vue`);
+    await globalComponents([`../../states/CheckBoxState.vue`, `../../views/bootstrap/BootstrapCheckBoxView.vue`, `../../views/material/MaterialCheckBoxView.vue`]);
 
     return {
         name: `CheckBoxDemo`,

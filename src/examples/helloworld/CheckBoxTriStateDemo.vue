@@ -31,9 +31,7 @@
 
 <script>
 export default async function() {
-    await globalComponent(`../../states/CheckBoxTriState.vue`);
-    await globalComponent(`../../views/bootstrap/BootstrapCheckBoxTriView.vue`);
-    await globalComponent(`../../views/material/MaterialCheckBoxTriView.vue`);
+    await globalComponents([`../../states/CheckBoxTriState.vue`, `../../views/bootstrap/BootstrapCheckBoxTriView.vue`, `../../views/material/MaterialCheckBoxTriView.vue`]);
 
     return {
         name: `CheckBoxTriStateDemo`,
