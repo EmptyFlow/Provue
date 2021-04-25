@@ -27,7 +27,11 @@
 
 <script>
 export default async function() {
-    await globalComponents(`../../states/SliderState.vue`, `../../views/bootstrap/BootstrapSliderView.vue`, `../../views/material/MaterialSliderView.vue`);
+    await globalComponents(
+        `../../states/SliderState.vue`,
+        `../../views/bootstrap/BootstrapSliderView.vue`,
+        `../../views/material/MaterialSliderView.vue`
+    );
 
     return {
         name: `SliderDemo`,
