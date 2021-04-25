@@ -151,7 +151,7 @@ function vuejsbootstraper() {
             this.globalComponentsUrls[url] = true;
             this.globalComponents[component.name] = true;
         },
-        loadComponentsGlobally(urls) {
+        loadComponentsGlobally(...urls) {
             return Promise.all(urls.map(url => this.loadComponentGlobally(url)));
         }
     }

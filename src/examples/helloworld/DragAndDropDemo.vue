@@ -21,7 +21,7 @@
 
 <script>
 export default async function() {
-    await globalComponents([`../../states/DragSourceState.vue`, `../../states/DropTargetState.vue`]);
+    await globalComponents(`../../states/DragSourceState.vue`, `../../states/DropTargetState.vue`);
 
     return {
         name: `DragAndDropDemo`,

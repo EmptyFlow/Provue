@@ -96,22 +96,25 @@ export default async function () {
     //load script and map to alias `boostrap` after it you can use - const bootstrap = await require.loadScript(`boostrap`);
     await require.loadScript(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js`, `boostrap`);
 
-    await globalComponents([`../../states/ButtonState.vue`, `../../views/bootstrap/BootstrapButtonView.vue`]);
-    const SliderDemo = await remoteComponent(`SliderDemo.vue`);
-    const RadioButtonDemo = await remoteComponent(`RadioButtonDemo.vue`);
-    const FontAwesomeDemo = await remoteComponent(`FontAwesomeDemo.vue`);
-    const ButtonsDemo = await remoteComponent(`ButtonsDemo.vue`);
-    const CheckBoxDemo = await remoteComponent(`CheckBoxDemo.vue`);
-    const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
-    const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
-    const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
-    const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
-    const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
-    const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
-    const ValidateHost = await remoteComponent(`../../states/ValidateHost.vue`);
-    const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`);
-    const DragAndDropDemo = await remoteComponent(`DragAndDropDemo.vue`);
-    const ModalDialogDemo = await remoteComponent(`ModalDialogDemo.vue`);    
+    await globalComponents(
+        `../../states/ButtonState.vue`,
+        `../../views/bootstrap/BootstrapButtonView.vue`,
+        `SliderDemo.vue`,
+        `RadioButtonDemo.vue`,
+        `FontAwesomeDemo.vue`,
+        `ButtonsDemo.vue`,
+        `CheckBoxDemo.vue`,
+        `ProgressDemo.vue`,
+        `CheckBoxTriStateDemo.vue`,
+        `NumberBoxDemo.vue`,
+        `TextAreaDemo.vue`,
+        `DropDownDemo.vue`,
+        `ListBoxDemo.vue`,
+        `../../states/ValidateHost.vue`,
+        `TextBoxDemo.vue`,
+        `DragAndDropDemo.vue`,
+        `ModalDialogDemo.vue`
+    );
 
     return {
         name: `Boot`,
@@ -156,23 +159,6 @@ export default async function () {
                     }
                 }
             }
-        },
-        components: {
-            ButtonsDemo,
-            CheckBoxDemo,
-            CheckBoxTriStateDemo,
-            ListBoxDemo,
-            TextBoxDemo,
-            TextAreaDemo,
-            DropDownDemo,
-            ValidateHost,
-            NumberBoxDemo,
-            FontAwesomeDemo,
-            RadioButtonDemo,
-            SliderDemo,
-            ProgressDemo,
-            DragAndDropDemo,
-            ModalDialogDemo
         }
     }
 }
