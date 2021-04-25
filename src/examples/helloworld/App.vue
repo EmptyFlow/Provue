@@ -99,7 +99,6 @@ export default async function () {
     await globalComponents(
         `../../states/ButtonState.vue`,
         `../../views/bootstrap/BootstrapButtonView.vue`,
-        `SliderDemo.vue`,
         `RadioButtonDemo.vue`,
         `FontAwesomeDemo.vue`,
         `ButtonsDemo.vue`,
@@ -113,7 +112,8 @@ export default async function () {
         `../../states/ValidateHost.vue`,
         `TextBoxDemo.vue`,
         `DragAndDropDemo.vue`,
-        `ModalDialogDemo.vue`
+        `ModalDialogDemo.vue`,
+        `SliderDemo.vue`
     );
 
     return {
