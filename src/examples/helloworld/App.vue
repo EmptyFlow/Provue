@@ -99,22 +99,22 @@ export default async function () {
     await globalComponents(
         `../../states/ButtonState.vue`,
         `../../views/bootstrap/BootstrapButtonView.vue`,
+        `../../states/ValidateHost.vue`,
+        `SliderDemo.vue`,
         `RadioButtonDemo.vue`,
         `FontAwesomeDemo.vue`,
         `ButtonsDemo.vue`,
-        `CheckBoxDemo.vue`,
-        `ProgressDemo.vue`,
-        `CheckBoxTriStateDemo.vue`,
-        `NumberBoxDemo.vue`,
-        `TextAreaDemo.vue`,
-        `DropDownDemo.vue`,
-        `ListBoxDemo.vue`,
-        `../../states/ValidateHost.vue`,
-        `TextBoxDemo.vue`,
-        `DragAndDropDemo.vue`,
-        `ModalDialogDemo.vue`,
-        `SliderDemo.vue`
-    );
+        `CheckBoxDemo.vue`
+        );
+    const ProgressDemo = await remoteComponent(`ProgressDemo.vue`);
+    const CheckBoxTriStateDemo = await remoteComponent(`CheckBoxTriStateDemo.vue`);
+    const NumberBoxDemo = await remoteComponent(`NumberBoxDemo.vue`);
+    const TextAreaDemo = await remoteComponent(`TextAreaDemo.vue`);
+    const DropDownDemo = await remoteComponent(`DropDownDemo.vue`);
+    const ListBoxDemo = await remoteComponent(`ListBoxDemo.vue`);
+    const TextBoxDemo = await remoteComponent(`TextBoxDemo.vue`); 
+    const DragAndDropDemo = await remoteComponent(`DragAndDropDemo.vue`);
+    const ModalDialogDemo = await remoteComponent(`ModalDialogDemo.vue`);    
 
     return {
         name: `Boot`,
@@ -159,6 +159,17 @@ export default async function () {
                     }
                 }
             }
+        },
+        components: {
+            CheckBoxTriStateDemo,
+            ListBoxDemo,
+            TextBoxDemo,
+            TextAreaDemo,
+            DropDownDemo,
+            NumberBoxDemo,
+            ProgressDemo,
+            DragAndDropDemo,
+            ModalDialogDemo
         }
     }
 }
