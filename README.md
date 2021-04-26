@@ -6,7 +6,7 @@ Set of components for build feature-rich modern web UI. There two category - con
 
 ## How can I contribute?
 
-You can check out our [guidelines](https://github.com/P-RCollaboration/CoreComponents/blob/main/CONTRIBUTING.md)
+You can check out our [guidelines](https://github.com/P-RCollaboration/CoreComponents/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/P-RCollaboration/CoreComponents/blob/main/CODE_OF_CONDUCT.md)
 
 ## Documentation and Examples
 Documentation - [link](https://p-rcollaboration.github.io/DocumentationWebSite/)  
