@@ -107,7 +107,8 @@ export default async function () {
         `RadioButtonDemo.vue`,
         `FontAwesomeDemo.vue`,
         `ButtonsDemo.vue`,
-        `CheckBoxDemo.vue`
+        `CheckBoxDemo.vue`,
+        `TestComponentNamespace.vue`
         );
     //local registration means that you can load component each time component loaded
     const ProgressDemo = await remoteComponent(`ProgressDemo.vue`); 
@@ -185,7 +186,7 @@ export default async function () {
     flex-direction: row;
     align-items: center;
     margin: 40px;
-    min-width: 100px;    
+    min-width: 100px;
 }
 .container > * {
     margin-left: 5px;
@@ -203,6 +204,6 @@ export default async function () {
     align-items: center;
 }
 .main-container > * {
-    background-color: white;
+    background-color: white; 
 }
 </style>
