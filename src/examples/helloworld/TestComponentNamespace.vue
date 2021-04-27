@@ -14,10 +14,10 @@ export default {
 .red-color {
     color: red;
 }
-.container {
+.container-namespace {
     width: 100px;
 }
-.container > * {
+.container-namespace > * {
     padding: 10px;
 }
 </style>
