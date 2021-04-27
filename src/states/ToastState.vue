@@ -28,19 +28,29 @@ export default {
     data() {
         return {
             handlers: {
-                opened: null,
-                closed: null
+                openedChanged: null
             }
         }
     },
     methods: {
+        setOpenedHandler(handler) {
+            if (!handler) {
+                console.warn(`ToastState.setOpenedHandler: handler is null!`);
+                return; 
+            }
+
+            this.handlers.openedChanged = handler;
+        },
+        runCallback() {
+            if (this.handlers.openedChanged) this.handlers.openedChanged(this.opened);
+        },
         open() {
-            if (this.handlers.opened) this.handlers.opened();
+            if (this.handlers.openedChanged) this.handlers.openedChanged(true);
 
             this.$emit(`opened`);
         },
         close() {
-            if (this.handlers.closed) this.handlers.closed();
+            if (this.handlers.closed) this.handlers.openedChanged(false);
 
             this.$emit(`closed`);
         }
