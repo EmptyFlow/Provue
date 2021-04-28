@@ -47,7 +47,7 @@ function vuejsbootstraper() {
             //TODO: handle syntax errors!!!
             const componentFunction = Function(
                 `module`,
-                `require`,
+                `dependency`,
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,

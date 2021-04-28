@@ -92,13 +92,13 @@
 <script>
 export default async function () {
     //load bootstrap styles
-    require.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css`);
+    dependency.resolveStyles(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css`);
     //load material styles
-    require.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
+    dependency.resolveStyles(`https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css`);
     //load fontawesome fonts
-    require.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
-    //load script and map to alias `boostrap` after it you can use - const bootstrap = await require.loadScript(`boostrap`);
-    await require.loadScript(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js`, `boostrap`);
+    dependency.resolveStyles(`https://use.fontawesome.com/releases/v5.0.13/css/all.css`);
+    //load script and map to alias `boostrap` after it you can use - const bootstrap = await dependency.loadScript(`boostrap`);
+    await dependency.loadScript(`https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js`, `boostrap`);
 
     //global registration means you can use component after it as tag
     await globalComponents(

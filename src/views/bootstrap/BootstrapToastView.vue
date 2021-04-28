@@ -15,7 +15,8 @@
                 </strong>
                 <button
                     type="button"
-                    class="btn-close">
+                    class="btn-close"
+                    @click="openedHandler(false)">
                 </button>
             </div>
             <div class="toast-body">
@@ -29,7 +30,7 @@
 
 <script>
 export default async function () {
-    const bootstrap = await require.loadScript(`boostrap`);
+    const bootstrap = await dependency.loadScript(`boostrap`);
 
     return {
         name: `BootstrapToastView`,

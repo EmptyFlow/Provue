@@ -29,7 +29,7 @@
 
 <script>
 export default async function() {
-    const bootstrap = await require.loadScript(`boostrap`);
+    const bootstrap = await dependency.loadScript(`boostrap`);
 
     return {
         name: `BootstrapModalDialogView`,

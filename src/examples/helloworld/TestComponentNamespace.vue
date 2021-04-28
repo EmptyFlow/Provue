@@ -1,4 +1,4 @@
-<template>
+<template @main>
     <div class="container red-color">
         Test namespace
     </div>
@@ -21,8 +21,3 @@ export default {
     padding: 10px;
 }
 </style>
-
-<component-namespace>
-    main
-</component-namespace>
-
