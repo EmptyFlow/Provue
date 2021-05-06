@@ -65,7 +65,7 @@ export default {
                     'border-radius': `3px 0 0 0`
                 },
                 middleCellStyle: {
-                    'border-width': `0 0 0 0`,
+                    'border-width': `1px 0 1px 0`,
                     'border-style': `solid`,
                     'border-bottom-color': `rgb(186, 191, 199)`,
                     'border-top-color': `rgb(186, 191, 199)`
@@ -89,7 +89,7 @@ export default {
                     'border-top-color': `rgb(186, 191, 199)`
                 },
                 middleCellStyle: {
-                    'border-width': `0 0 0 0`,
+                    'border-width': `0 0 1px 0`,
                     'border-style': `solid`,
                     'border-bottom-color': `rgb(186, 191, 199)`,
                     'border-top-color': `rgb(186, 191, 199)`
@@ -133,6 +133,7 @@ export default {
             };
 
             const lastColumns = this.context.visibleColumns.length - 1;
+            console.log(lastColumns, index, index === lastColumns);
 
             return Object.assign(
                 styles,
@@ -153,35 +154,11 @@ export default {
             };
 
             return this.cell.fillCellStyle(cell, theme, styles);
-        },
-        fillItems(items, columns) {
-            const result = [];
-            let rowIndex = 0;
-            for (const item of items) {
-                let columnIndex = 0;
-                for (const column of columns) {
-                    result.push(
-                        {
-                            value: item[column.field],
-                            rowIndex,
-                            columnIndex, 
-                            column: column,
-                            item
-                        }
-                    );
-                    columnIndex++;
-                }
-                rowIndex++;
-            }
-
-            return result;
-        }
+        }        
     },
     computed: {
         gridItems() {
-            const fillItemsFunction = this.fillItemsHandler || this.fillItems;
-
-            return fillItemsFunction(this.context.items, this.context.visibleColumns);
+            return this.context.handlers.fillItems(this.context.items, this.context.visibleColumns); 
         }
     }
 }

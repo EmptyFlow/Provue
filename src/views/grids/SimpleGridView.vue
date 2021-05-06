@@ -1,7 +1,6 @@
 <template @core>
     <div class="simple-table-container">
         <table-view
-            ref="tableView"
             :context="context"
             @pageloaded="$refs.paginator.refresh()">
             <div
@@ -17,7 +16,7 @@
                 {{ item.value }}
             </div>
         </table-view>
-        <!-- <div class="bottomtable">
+        <div class="bottomtable">
             <span>Page size </span>
             <div class="pagesize">
                 <select v-model="context.innerSelectedPageSize">
@@ -32,11 +31,10 @@
             <div class="separator"></div>
             <paginator-view
 				ref="paginator"
-                :displayPages="paginationPages"
                 :context="context"
-                @changepage="$refs.tableView.loadPage(context.pageFormatter($event))"
+                @changepage="context.loadPage(context.pageFormatter($event))"
             />
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -72,7 +70,6 @@ export default {
 	border-bottom-width: 1px;
 	border-top-width: 0px;
 	border-color: rgb(186, 191, 199);
-	width: 100%;
 }
 .pagesize > * {
 	width: 100%;

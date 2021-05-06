@@ -36,7 +36,8 @@ export default {
             innerSelectedPageSize: 10,
             handlers: {
                 getCount: this.localGetCount,
-                getPageItem: this.localGetPageItems,
+                getPageItems: this.localGetPageItems,
+                fillItems: this.localFillItems
             }
         }  
     },
@@ -45,22 +46,41 @@ export default {
     },
     methods: {
         selectPageSize(value) {
-            if (value && value in this.pageSizes) this.innerSelectedPageSize = value;
+            if (value && this.pageSizes.find(a => a === value)) this.innerSelectedPageSize = value;
         },
         localGetCount() {
             return this.items.length;
         },
-        localGetPageItems(startIndex, endIndex) {
-            return this.items.slice(startIndex, endIndex);
+        localGetPageItems() {
+            const startIndex = this.innerSelectedPageSize * (this.currentPage - 1);
+            return this.items.slice(startIndex, startIndex + this.innerSelectedPageSize);
+        },
+        localFillItems(items, columns) {
+            const result = [];
+            let rowIndex = 0;
+            const pageItems = this.handlers.getPageItems();
+            
+            for (const item of pageItems) {
+                let columnIndex = 0;
+                for (const column of columns) {
+                    result.push(
+                        {
+                            value: item[column.field],
+                            rowIndex,
+                            columnIndex, 
+                            column: column,
+                            item
+                        }
+                    );
+                    columnIndex++;
+                }
+                rowIndex++;
+            }
+
+            return result;
         },
         loadPage(pageNumber) {
-            const count = this.handlers.getCount();
-            const pageSize = this.innerSelectedPageSize;
-            const startIndex = (pageNumber - 1) * pageSize;
-            const pageItemsCount = count - startIndex > pageSize ? pageSize : count - startIndex;
             this.currentPage = pageNumber;
-            if (startIndex > count) return [];
-            return this.localGetPageItems(startIndex, startIndex + pageItemsCount);
         },
         pageFormatter(pageNumber) {
             const totalCount = this.handlers.getCount();
@@ -88,8 +108,7 @@ export default {
             const pageSize = this.selectedPageSize;
 
             if (count === 0) {
-              this.paginationPages = [];
-              return;
+              return [];
             }
 
             const countPages = Math.ceil(count / pageSize);
@@ -113,12 +132,12 @@ export default {
                     paginationPages.push(startPage + i);
                 }
                 
-                if (startPage + pagesBufferSize + 1 < countPages - 1) {
+                if (startPage + pagesBufferSize + 1 < countPages - 1) { 
                     paginationPages.push(`>`);
                     paginationPages.push(`>>`);
                 }
             }
-            this.paginationPages = paginationPages;
+            return paginationPages;
         }
     },
     watch: {

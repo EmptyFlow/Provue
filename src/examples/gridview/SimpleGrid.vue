@@ -47,7 +47,28 @@ export default async function () {
                         name: `Edward`,
                         age: 15,
                         funFact: `Don't like milk`
-                    }
+                    },
+                    {
+                        name: `Scar`,
+                        age: `unknown`,
+                        funFact: `He doesn't want to be called by a name other than Scar.`
+                    },
+                    {
+                        name: `Mei`, 
+                        age: 13, 
+                        funFact: `She has a cute pet panda ^_^`
+                    },
+                    {
+                        name: `Roy`,
+                        age: 30, 
+                        funFact: `In love with his assistant`
+                    },
+                    {
+                        name: `Van`,
+                        age: 451,
+                        funFact: `Has a perfect wife`
+                    },
+
                 ]
             }
         }
