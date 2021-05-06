@@ -133,7 +133,6 @@ export default {
             };
 
             const lastColumns = this.context.visibleColumns.length - 1;
-            console.log(lastColumns, index, index === lastColumns);
 
             return Object.assign(
                 styles,
