@@ -1,14 +1,21 @@
 <template>
     <div>
-        <simple-grid>
-        </simple-grid>
+        <div>
+            <simple-grid>
+            </simple-grid>
+        </div>
+        <div>
+            <classic-grid>            
+            </classic-grid>
+        </div>
     </div>
 </template>
 
 <script>
 export default async function () {
     await globalComponents(
-        `SimpleGrid.vue`
+        `SimpleGrid.vue`,
+        `ClassicGrid.vue`
     );
 
     return {

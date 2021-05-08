@@ -12,7 +12,7 @@
                 </slot>
             </div>
             <div
-                v-for="(item, index) in gridItems"
+                v-for="(item, index) in gridItems()"
                 :key="index"
                 :style="cell.getCellStyle(item, cell)">
                 <slot
@@ -153,11 +153,9 @@ export default {
             };
 
             return this.cell.fillCellStyle(cell, theme, styles);
-        }        
-    },
-    computed: {
+        },
         gridItems() {
-            return this.context.handlers.fillItems(this.context.items, this.context.visibleColumns); 
+            return this.context.handlers.fillItems(this.context.visibleColumns, this.context);
         }
     }
 }

@@ -37,16 +37,81 @@ export default {
             handlers: {
                 getCount: this.localGetCount,
                 getPageItems: this.localGetPageItems,
-                fillItems: this.localFillItems
+                fillItems: this.localFillItems,
+                preloadPage: this.localPreloadPage,
+                pageLoaded: this.localPageLoaded
+            },
+            sortingFields: {
+                'name': { descending: false }
             }
         }  
     },
     created() {
         this.selectPageSize(this.selectedPageSize);
+        if (this.options && this.options.handlers) Object.assign(this.handlers, this.options.handlers);
+    },
+    mounted() {
+        if (this.options && this.options.autoLoadPage) this.loadPage(1);
     },
     methods: {
+        setHandler(name, handler) {
+            if (!handler) {
+                console.warn(`GridViewState.setHandler: handler ${name} is null!`);
+                return;
+            }
+
+            this.handlers[name] = handler;
+        },
+        toggleSorting(columnField) {
+            const sortingFields = this.sortingFields;
+            if (sortingFields[columnField]) {
+                const sortingField = sortingFields[columnField];
+                let newValue = null;
+                if (!sortingField.descending) {
+                sortingField.descending = true;
+                newValue = sortingField;
+                
+                this.$set(this.sortingFields, columnField, newValue);
+                } else {
+                delete sortingFields[columnField];
+                }
+            } else {
+                this.$set(this.sortingFields, columnField, { descending: false });
+            }
+
+            this.reload();
+        },
+        sortingObjectByMultipleField(items, sortingFields) {
+            if (!sortingFields || !Object.keys(sortingFields).length) return items;
+
+            const array = items.map(a => a);
+            const rightFieldsArray = Object.keys(sortingFields).map(a => { return { name: a, descending: sortingFields[a].descending } });
+            if (!rightFieldsArray.length) return items;
+
+            function innerSort(left, right, rightFields) {
+                const sotingItem = rightFields[0];
+                const sortingField = sotingItem.name;
+                const sortingDescending = sotingItem.descending;
+
+                const leftValue = left[sortingField] || ``;
+                const rightValue = right[sortingField] || ``; 
+                if (leftValue === rightValue) {
+                    return rightFields && rightFields.length > 1 ? innerSort(left, right, rightFields.slice(1)) : 0;
+                }
+
+                return (sortingDescending ? leftValue < rightValue : leftValue > rightValue ) ? 1 : -1;
+            }
+
+            array.sort((left, right) => {
+                return innerSort(left, right, rightFieldsArray);
+            });
+            
+            return array;
+        },
         selectPageSize(value) {
             if (value && this.pageSizes.find(a => a === value)) this.innerSelectedPageSize = value;
+        },
+        localPageLoaded() {
         },
         localGetCount() {
             return this.items.length;
@@ -55,10 +120,13 @@ export default {
             const startIndex = this.innerSelectedPageSize * (this.currentPage - 1);
             return this.items.slice(startIndex, startIndex + this.innerSelectedPageSize);
         },
-        localFillItems(items, columns) {
+        localPreloadPage() {
+            return Promise.resolve();
+        },
+        localFillItems(columns) {
             const result = [];
             let rowIndex = 0;
-            const pageItems = this.handlers.getPageItems();
+            const pageItems = this.handlers.getPageItems(this);
             
             for (const item of pageItems) {
                 let columnIndex = 0;
@@ -79,11 +147,18 @@ export default {
 
             return result;
         },
-        loadPage(pageNumber) {
+        async reload() {
+            await this.loadPage(1);
+        },
+        async loadPage(pageNumber) {
+            if (this.handlers.preloadPage) await this.handlers.preloadPage(pageNumber);
+
             this.currentPage = pageNumber;
+
+            if (this.handlers.pageLoaded) this.handlers.pageLoaded();
         },
         pageFormatter(pageNumber) {
-            const totalCount = this.handlers.getCount();
+            const totalCount = this.handlers.getCount(this);
             const pageSize = this.selectedPageSize;
 
             switch(pageNumber)  {
@@ -104,7 +179,7 @@ export default {
            }
         },
         getPaginationPages() {
-            const count = this.handlers.getCount();
+            const count = this.handlers.getCount(this);
             const pageSize = this.selectedPageSize;
 
             if (count === 0) {
@@ -159,6 +234,9 @@ export default {
     computed: {
         visibleColumns() {
             return this.columns.filter(a => !a.notVisible);
+        },
+        columnsWithSlots() {
+            return this.columns.filter(a => a.slot);
         }
     }
 };
