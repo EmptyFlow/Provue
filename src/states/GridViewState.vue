@@ -43,7 +43,8 @@ export default {
             },
             sortingFields: {
                 'name': { descending: false }
-            }
+            },
+            filterFields: []
         }  
     },
     created() {
@@ -54,6 +55,18 @@ export default {
         if (this.options && this.options.autoLoadPage) this.loadPage(1);
     },
     methods: {
+        setFilterFields(filters) {
+            this.filterFields = filters;
+        },
+        filteringObjectsByMultipleField(items, filterFields) {
+            if (!filterFields || !filterFields.length) return items;
+
+            return items.filter(
+                item => {
+                    return filterFields.filter(filter => filter.command(item, filter.fields, filter.value)).length;
+                }
+            );
+        },
         setHandler(name, handler) {
             if (!handler) {
                 console.warn(`GridViewState.setHandler: handler ${name} is null!`);
@@ -151,7 +164,7 @@ export default {
             await this.loadPage(1);
         },
         async loadPage(pageNumber) {
-            if (this.handlers.preloadPage) await this.handlers.preloadPage(pageNumber);
+            if (this.handlers.preloadPage) await this.handlers.preloadPage(pageNumber, this);
 
             this.currentPage = pageNumber;
 
@@ -159,7 +172,7 @@ export default {
         },
         pageFormatter(pageNumber) {
             const totalCount = this.handlers.getCount(this);
-            const pageSize = this.selectedPageSize;
+            const pageSize = this.innerSelectedPageSize;
 
             switch(pageNumber)  {
               case `<<`:
@@ -180,7 +193,7 @@ export default {
         },
         getPaginationPages() {
             const count = this.handlers.getCount(this);
-            const pageSize = this.selectedPageSize;
+            const pageSize = this.innerSelectedPageSize;
 
             if (count === 0) {
               return [];

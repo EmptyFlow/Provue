@@ -38,7 +38,6 @@ export default async function () {
                     isGrouping: true,
                     groupField: `name`,
                     groupDescending: false,
-                    filterFields: [],
                     groupKeys: new Set(),
                     searchValue: ``,
                     searchTimeoutId: null,
@@ -98,19 +97,8 @@ export default async function () {
             }
         },
         methods: {
-            filteringObjectsByMultipleField(items, filters) {
-                if (!filters || !filters.length) return items;
-
-                return items.filter(
-                    item => {
-                        return filters.filter(filter => filter.command(item, filter.fields, filter.value)).length;
-                    }
-                );
-            },
-            preloadPage() {
-                this.filteringItems = this.filteringObjectsByMultipleField(this.items, this.options.filterFields);
-
-                this.$refs.gridview.forceUpdate();
+            preloadPage(pageNumber, context) {
+                this.filteringItems = context.filteringObjectsByMultipleField(this.items, context.filterFields);
 
                 return Promise.resolve();
             }, 
@@ -177,25 +165,23 @@ export default async function () {
                 return result;
             },
             performFiltering(searchValue) {
-                let filterFields = this.options.filterFields;
+                // in this case we removing or setting filter for fulltext search
+                let filterFields;
                 if (!searchValue) {
                     filterFields = [];
                 } else {
-                    if (filterFields.length) {
-                    const filter = filterFields[0];
-                    filter.value = this.searchValue;
-                    } else {
-                    filterFields[0] = {
-                        value: searchValue,
-                        command: this.fullTextSearch,
-                        fields: [] // in this case fields not used because performing fulltext search
-                    };
-                    }
+                    filterFields = [
+                        {
+                            value: searchValue,
+                            command: this.fullTextSearch,
+                            fields: [] // in this case fields not used because performing fulltext search
+                        }
+                    ]
                 }
 
-                this.options.filterFields = filterFields;
-
-                this.$refs.gridstate.reload();
+                const gridState = this.$refs.gridstate;
+                gridState.setFilterFields(filterFields);
+                gridState.reload();
             },
             searchValueChanged($event) {
                 //After the user type a new character in the search field it will be bad practice to immediately perform a request for filtering because it can cause performance issues for the backend.
@@ -204,9 +190,9 @@ export default async function () {
                 
                 this.searchTimeoutId = setTimeout(
                     () => {
-                    this.performFiltering($event);
+                        this.performFiltering($event);
 
-                    this.searchTimeoutId = null;
+                        this.searchTimeoutId = null;
                     },
                     1000
                 );

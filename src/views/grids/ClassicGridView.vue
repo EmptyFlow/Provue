@@ -49,7 +49,7 @@
     <div class="bottomtable">
       <span>Page size </span>
       <div class="pagesize">
-        <select v-model="context.innerSelectedPageSize">
+        <select v-model="context.innerSelectedPageSize" @change="pageLoaded()">
           <option
             v-for="(item, index) in context.pageSizes"
             :key="index"
@@ -90,7 +90,7 @@ export default {
     },
     methods: {
         pageLoaded() {
-            this.$refs.paginator.refresh();
+			this.$refs.paginator.refresh();
         },
         fillCellStyle(cell, theme, styles) {
             if (!this.$refs.tableView) return {};
@@ -110,10 +110,6 @@ export default {
         },
         toggleSorting(columnField) {
             this.context.toggleSorting(columnField);
-        },
-        forceUpdate() { 
-            this.$refs.tableView.$forceUpdate();
-            this.$refs.paginator.$forceUpdate();
         }
     }
 } 
