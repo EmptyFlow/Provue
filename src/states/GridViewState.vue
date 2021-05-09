@@ -68,12 +68,12 @@ export default {
                 const sortingField = sortingFields[columnField];
                 let newValue = null;
                 if (!sortingField.descending) {
-                sortingField.descending = true;
-                newValue = sortingField;
-                
-                this.$set(this.sortingFields, columnField, newValue);
+                    sortingField.descending = true;
+                    newValue = sortingField;
+                    
+                    this.$set(this.sortingFields, columnField, newValue);
                 } else {
-                delete sortingFields[columnField];
+                    delete sortingFields[columnField];
                 }
             } else {
                 this.$set(this.sortingFields, columnField, { descending: false });

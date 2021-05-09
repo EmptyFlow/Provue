@@ -1,5 +1,6 @@
 <template>
     <grid-view-state
+        ref="gridstate"
         :columns="columns"
         :items="items"
         :options="options">
@@ -175,9 +176,9 @@ export default async function () {
 
                 return result;
             },
-            performFiltering() {
+            performFiltering(searchValue) {
                 let filterFields = this.options.filterFields;
-                if (!this.searchValue) {
+                if (!searchValue) {
                     filterFields = [];
                 } else {
                     if (filterFields.length) {
@@ -185,7 +186,7 @@ export default async function () {
                     filter.value = this.searchValue;
                     } else {
                     filterFields[0] = {
-                        value: this.searchValue,
+                        value: searchValue,
                         command: this.fullTextSearch,
                         fields: [] // in this case fields not used because performing fulltext search
                     };
@@ -194,7 +195,7 @@ export default async function () {
 
                 this.options.filterFields = filterFields;
 
-                this.$refs.tableView.reload();
+                this.$refs.gridstate.reload();
             },
             searchValueChanged($event) {
                 //After the user type a new character in the search field it will be bad practice to immediately perform a request for filtering because it can cause performance issues for the backend.
@@ -203,7 +204,7 @@ export default async function () {
                 
                 this.searchTimeoutId = setTimeout(
                     () => {
-                    this.performFiltering();
+                    this.performFiltering($event);
 
                     this.searchTimeoutId = null;
                     },
@@ -214,7 +215,7 @@ export default async function () {
                 //Fields in parameters ignored because we need search on any fields.
                 const objectFields = Object.keys(item);
 
-                return objectFields.find(field => item[field] && item[field].toString().indexOf(value) > -1);
+                return objectFields.find(field => item[field] && item[field].toString().toLowerCase().indexOf(value.toLowerCase()) > -1);
             }
         }
     }
