@@ -1,6 +1,5 @@
 <template>
     <grid-view-state
-        ref="gridstate"
         :columns="columns"
         :items="items"
         :options="options">
@@ -118,7 +117,10 @@ export default async function () {
                 return this.filteringItems.length;
             },
             getPageItems(context) {
-                return context.sortingObjectByMultipleField(this.filteringItems, this.options.sortingFields);
+                const items = context.sortingObjectByMultipleField(this.filteringItems, context.sortingFields);
+                
+                const startIndex = context.innerSelectedPageSize * (context.currentPage - 1);
+                return items.slice(startIndex, startIndex + context.innerSelectedPageSize);
             },
             setGroups(items) {
                 if (!this.options.groupField) return;

@@ -83,7 +83,7 @@ export default {
         },
         sortingObjectByMultipleField(items, sortingFields) {
             if (!sortingFields || !Object.keys(sortingFields).length) return items;
-
+            
             const array = items.map(a => a);
             const rightFieldsArray = Object.keys(sortingFields).map(a => { return { name: a, descending: sortingFields[a].descending } });
             if (!rightFieldsArray.length) return items;

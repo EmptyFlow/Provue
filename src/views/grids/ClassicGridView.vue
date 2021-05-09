@@ -92,7 +92,7 @@ export default {
         pageLoaded() {
             this.$refs.paginator.refresh();
         },
-        fillCellStyle(cell, theme, styles) {     
+        fillCellStyle(cell, theme, styles) {
             if (!this.$refs.tableView) return {};
 
             const cellStyles = this.$refs.tableView.fillCellStyle(cell, theme, styles);
