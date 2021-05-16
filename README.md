@@ -14,4 +14,4 @@ Hello world Demo - [link](https://p-rcollaboration.github.io/CoreComponents/src/
 GridView Demo - [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/gridview/index.html)
 
 ## Tools
-Especially for Provue created a [console application](https://github.com/P-RCollaboration/ProvueCLI) that helps you in development.
+Especially for Provue created a [console application](https://github.com/P-RCollaboration/ProvueCLI) that helps you in development.  
