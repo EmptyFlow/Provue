@@ -76,7 +76,7 @@ export default {
         toggleSorting(columnField) {
             let sortingFields = this.sortingFields[columnField];
             
-            if (sortingFields) {                
+            if (sortingFields) {
                 if (!sortingFields.active) {
                     sortingFields.active = true;
                     sortingFields.descending = false;

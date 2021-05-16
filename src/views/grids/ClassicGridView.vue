@@ -133,63 +133,63 @@ export default {
 
 <style>
 .simple-table-container {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  width: 500px;  
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	text-align: center;
+	width: 500px;  
 }
 .separator {
-  flex: 1;
+	flex: 1;
 }
 .bottomtable {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 4px;
-  border-style: solid;
-  border-right-width: 1px;
-  border-left-width: 1px;
-  border-bottom-width: 1px;
-  border-top-width: 0px;
-  border-color: rgb(186, 191, 199);
-  widows: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 4px;
+	border-style: solid;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-bottom-width: 1px;
+	border-top-width: 0px;
+	border-color: rgb(186, 191, 199);
+	widows: 100%;
 }
 .pagesize > * {
-  width: 100%;
-  margin-left: 8px;
+	width: 100%;
+	margin-left: 8px;
 }
 .column-head {
-  display: flex;
-  align-items: center;
-  padding: 18px;
-  font-weight: bold;
-  user-select: none;
+	display: flex;
+	align-items: center;
+	padding: 18px;
+	font-weight: bold;
+	user-select: none;
 }
 .column-head > *:first-child {
-  flex: 1;
+	flex: 1;
 }
 .column-cell {
-  display: flex;
-  align-items: center;
-  padding: 18px;
+	display: flex;
+	align-items: center;
+	padding: 18px;
 }
 .grid-view-toolbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 .text-control {
-  margin: 2px 0px;
-  font-size: 15px;
-  padding: 6px 4px;
-  border-color: lightgray;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
+	margin: 2px 0px;
+	font-size: 15px;
+	padding: 6px 4px;
+	border-color: lightgray;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 4px;
 }
 .text-control:focus {
-  outline: none;
-  border-color: lightblue;
-  border-width: 2px;
+	outline: none;
+	border-color: lightblue;
+	border-width: 2px;
 }
 </style>
