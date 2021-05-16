@@ -54,11 +54,11 @@
 			
 			<!-- Special slot for group header -->
 			<template
-				slot="groupslot"
-				slot-scope="{ item }">
+				v-slot:groupslot="{ item }">
 				<slot
 					name="groupslot"
 					:item="item">
+					<div class="column-cell-group"> Group is: {{ item.value }} </div>
 				</slot>
 			</template>
 		</table-view>
@@ -117,6 +117,7 @@ export default {
                 styles['border-right-color'] = `rgb(186, 191, 199)`;
                 styles['border-width'] = `0px 1px 1px 1px`;
                 styles['padding'] = `4px`;
+				styles['background-color'] = `lightgrey`;
             }
 
             return cellStyles;
@@ -191,5 +192,11 @@ export default {
 	outline: none;
 	border-color: lightblue;
 	border-width: 2px;
+}
+.column-cell-group {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+  font-weight: bold;
 }
 </style>

@@ -36,7 +36,7 @@ export default async function () {
                         preloadPage: this.preloadPage
                     },
                     isGrouping: true,
-                    groupField: `name`,
+                    groupField: `group`,
                     groupDescending: false,
                     groupKeys: new Set(),
                     searchValue: ``,
@@ -64,34 +64,57 @@ export default async function () {
                     {
                         name: `Alphonse`,
                         age: 14,
-                        funFact: `Walking armour`
+                        funFact: `Walking armour`,
+                        group: `Protoganist`
                     },
                     {
                         name: `Edward`,
                         age: 15,
-                        funFact: `Don't like milk`
+                        funFact: `Don't like milk`,
+                        group: `Protoganist`
                     },
                     {
                         name: `Scar`,
                         age: `unknown`,
-                        funFact: `He doesn't want to be called by a name other than Scar.`
+                        funFact: `He doesn't want to be called by a name other than Scar.`,
+                        group: `Protoganist`
                     },
                     {
                         name: `Mei`, 
                         age: 13, 
-                        funFact: `She has a cute pet panda ^_^`
+                        funFact: `She has a cute pet panda ^_^`,
+                        group: `Supporting character`
                     },
                     {
                         name: `Roy`,
                         age: 30, 
-                        funFact: `In love with his assistant`
+                        funFact: `In love with his assistant`,
+                        group: `Supporting character`
                     },
                     {
                         name: `Van`,
                         age: 451,
-                        funFact: `Has a perfect wife`
+                        funFact: `Has a perfect wife`,
+                        group: `Supporting character`
                     },
-
+                    {
+                        name: `Character1`,
+                        age: 320,
+                        funFact: `Number one`,
+                        group: `Supporting character`
+                    },
+                    {
+                        name: `Character2`,
+                        age: 322,
+                        funFact: `Number two`,
+                        group: `Supporting character`
+                    },
+                    {
+                        name: `Character3`,
+                        age: 323,
+                        funFact: `Number three`,
+                        group: `Supporting character`
+                    },
                 ],
                 filteringItems: []
             }
@@ -132,7 +155,7 @@ export default async function () {
                 for (const item of pageItems) {
                     let columnIndex = 0;
                     
-                    if (this.isGrouping && currentGroup !== item[groupField]) {
+                    if (this.options.isGrouping && currentGroup !== item[groupField]) {
                         currentGroup = item[groupField];
                     
                         result.push(
