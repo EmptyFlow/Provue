@@ -1,71 +1,87 @@
 <template>
-  <div class="simple-table-container">
-    <div class="grid-view-toolbar">
-      <div></div>
-      <div>
-        <input
-          type="text"
-          class="text-control"
-          v-model="searchValue"
-          @input="searchValueChanged($event)"
-        />
-      </div>
-    </div>
-    <table-view
-      ref="tableView"
-      :context="context"
-      :theme-cell="tableViewThemeCell">
-      <div
-        class="column-head" 
-        slot="columnhead"
-        slot-scope="{ column }"
-        @click="toggleSorting(column.field)">
-        <span>{{ column.title }}</span>
-        <div v-if="context.sortingFields[column.field]">
-          <span v-if="context.sortingFields[column.field].descending">&#8593;</span>
-          <span v-else>&#8595;</span>
-        </div>
-      </div>      
-      <!-- Reassign slots for external components -->
-      <template
-        v-for="column in context.columnsWithSlots"
-        :slot="column.slot"
-        slot-scope="{ item }">
-        <slot
-          :name="column.slot"
-          :item="item">
-        </slot>
-      </template>
-      <!-- Special slot for group header -->
-      <template
-        slot="groupslot"
-        slot-scope="{ item }">
-        <slot
-          name="groupslot"
-          :item="item">
-        </slot>
-      </template>
-    </table-view>
-    <div class="bottomtable">
-      <span>Page size </span>
-      <div class="pagesize">
-        <select v-model="context.innerSelectedPageSize" @change="pageLoaded()">
-          <option
-            v-for="(item, index) in context.pageSizes"
-            :key="index"
-            :value="item">
-            {{ item }}
-          </option>
-        </select>
-      </div>
-      <div class="separator"></div>
-      <paginator-view
-        ref="paginator"
-        :context="context"
-        @changepage="context.loadPage(context.pageFormatter($event))"
-      />
-    </div>
-  </div>
+	<div
+		class="simple-table-container">
+		<div
+			class="grid-view-toolbar">
+			<div></div>
+			<div>
+				<input
+					type="text"
+					class="text-control"
+					v-model="searchValue"
+					@input="searchValueChanged($event)"
+				/>
+			</div>
+		</div>
+		<table-view
+			ref="tableView"
+			:context="context"
+			:theme-cell="tableViewThemeCell">
+			<template v-slot:columnhead="{ column }">
+				<div
+					class="column-head" 
+					@click="toggleSorting(column.field)">
+					<span>
+						{{ column.title }}
+					</span>
+					<div
+						v-if="context.sortingFields[column.field]">
+						<div
+							v-if="context.sortingFields[column.field].active">
+							<span
+								v-if="context.sortingFields[column.field].descending">
+								&#8593;
+							</span>
+							<span
+								v-else>
+								&#8595;
+							</span>
+						</div>
+					</div>
+				</div>
+			</template>
+			
+			<!-- Reassign slots for external components -->
+			<template
+				v-for="column in context.columnsWithSlots"
+				:slot="column.slot"
+				slot-scope="{ item }">
+				<slot
+					:name="column.slot"
+					:item="item">
+				</slot>
+			</template>
+			
+			<!-- Special slot for group header -->
+			<template
+				slot="groupslot"
+				slot-scope="{ item }">
+				<slot
+					name="groupslot"
+					:item="item">
+				</slot>
+			</template>
+		</table-view>
+		<div class="bottomtable">
+			<span>Page size </span>
+			<div class="pagesize">
+				<select v-model="context.innerSelectedPageSize" @change="pageLoaded()">
+					<option
+						v-for="(item, index) in context.pageSizes"
+						:key="index"
+						:value="item">
+						{{ item }}
+					</option>
+				</select>
+			</div>
+			<div class="separator"></div>
+			<paginator-view
+				ref="paginator"
+				:context="context"
+				@changepage="context.loadPage(context.pageFormatter($event))"
+			/>
+		</div>
+	</div>
 </template>
 
 <script>

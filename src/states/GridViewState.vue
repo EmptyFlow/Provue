@@ -41,9 +41,7 @@ export default {
                 preloadPage: this.localPreloadPage,
                 pageLoaded: this.localPageLoaded
             },
-            sortingFields: {
-                'name': { descending: false }
-            },
+            sortingFields: {},
             filterFields: []
         }  
     },
@@ -76,21 +74,24 @@ export default {
             this.handlers[name] = handler;
         },
         toggleSorting(columnField) {
-            const sortingFields = this.sortingFields;
-            if (sortingFields[columnField]) {
-                const sortingField = sortingFields[columnField];
-                let newValue = null;
-                if (!sortingField.descending) {
-                    sortingField.descending = true;
-                    newValue = sortingField;
-                    
-                    this.$set(this.sortingFields, columnField, newValue);
+            let sortingFields = this.sortingFields[columnField];
+            
+            if (sortingFields) {                
+                if (!sortingFields.active) {
+                    sortingFields.active = true;
+                    sortingFields.descending = false;
                 } else {
-                    delete sortingFields[columnField];
-                }
+                    if (sortingFields.descending) {
+                        sortingFields.active = false;
+                    } else {
+                        sortingFields.descending = true;
+                    }
+                }                    
             } else {
-                this.$set(this.sortingFields, columnField, { descending: false });
+                sortingFields = { descending: false, active: true };
             }
+
+            this.$set(this.sortingFields, columnField, sortingFields);
 
             this.reload();
         },
@@ -98,7 +99,16 @@ export default {
             if (!sortingFields || !Object.keys(sortingFields).length) return items;
             
             const array = items.map(a => a);
-            const rightFieldsArray = Object.keys(sortingFields).map(a => { return { name: a, descending: sortingFields[a].descending } });
+            const rightFieldsArray = Object.keys(sortingFields)
+                .filter(a => sortingFields[a].active)
+                .map(
+                    a => {
+                        return {
+                            name: a,
+                            descending: sortingFields[a].descending
+                        }
+                    }
+                );
             if (!rightFieldsArray.length) return items;
 
             function innerSort(left, right, rightFields) {
