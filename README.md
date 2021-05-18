@@ -11,7 +11,7 @@ You can check out our [guidelines](https://github.com/P-RCollaboration/CoreCompo
 ## Documentation and Examples
 Documentation - [link](https://p-rcollaboration.github.io/DocumentationWebSite/)  
 Hello world Demo - [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/helloworld/index.html)  
-Hello world Vue.js 3 Demo [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/helloworld/index.vue3.html)
+Hello world Vue.js 3 Demo [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/helloworld/index.vue3.html)  
 GridView Demo - [link](https://p-rcollaboration.github.io/CoreComponents/src/examples/gridview/index.html)
 
 ## Tools
