@@ -16,6 +16,10 @@ export default {
             type: [Object, Boolean],
             default: () => null
         },
+        modelValue: {
+            type: Boolean,
+            default: () => false
+        },
         disable: {
             type: Boolean,
             default: () => false
@@ -31,11 +35,12 @@ export default {
     data() {
         return {
             checked: null,
-            isValid: false
+            isValid: false,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.checked = this.value;
+        this.checked = this.isVue3 ? this.modelValue : this.value;
         this.validate();
     },
     methods: {
@@ -71,15 +76,21 @@ export default {
         },
         raiseEvents() {
             this.$emit(`checked`, this.checked); // added for separate v-model events and external events
-            this.$emit(`input`, this.checked);
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.checked);
+        },
+        setChecked(value) {
+            this.checked = value;
+            
+            this.raiseEvents();
+            this.validate();
         }
     },
     watch: {
         value(newValue) {
-            this.checked = newValue;
-            
-            this.raiseEvents();
-            this.validate();
+            this.setChecked(newValue);
+        },
+        modelValue(newValue) {
+            this.setChecked(newValue);
         }
     }
 };

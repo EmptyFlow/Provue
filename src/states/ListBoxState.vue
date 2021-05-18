@@ -12,6 +12,10 @@ export default {
             type: Array,
             default: () => []
         },
+        modelValue: {
+            type: Array,
+            default: () => []
+        },
         disable: {
             type: Boolean,
             default: () => false
@@ -23,11 +27,13 @@ export default {
     },
     data () {
         return {
-            selectedOptions: null
+            selectedOptions: null,
+            isVue3: vueVersion === `3`
         }  
     },
     created() {
-        this.selectedOptions = this.value ? new Set(this.value) : new Set();
+        const value = this.isVue3 ? this.modelValue : this.value;
+        this.selectedOptions = value ? new Set(value) : new Set();
     },
     methods: {
         select($event) {
@@ -43,13 +49,19 @@ export default {
             this.selectedOptions = selectedOptions;
 
             this.$emit(`selected`, $event);
-            this.$emit(`input`, Array.from(this.selectedOptions));
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, Array.from(this.selectedOptions));
+        },
+        setSelectedOptions(newValue) {
+            this.selectedOptions = null;
+            this.selectedOptions = newValue ? new Set(newValue) : new Set();
         }
     },
     watch: {
         value(newValue) {
-            this.selectedOptions = null;
-            this.selectedOptions = newValue ? new Set(newValue) : new Set();
+            this.setSelectedOptions(newValue);
+        },
+        modelValue(newValue) {
+            this.setSelectedOptions(newValue);
         }
     }
 };

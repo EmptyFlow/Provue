@@ -16,6 +16,10 @@ export default {
             type: [String, Number, Object],
             default: () => null
         },
+        modelValue: {
+            type: [String, Number, Object],
+            default: () => null
+        },
         disable: {
             type: Boolean,
             default: () => false
@@ -31,11 +35,12 @@ export default {
     data() {
         return {
             radioValue: false,
-            isValid: false
+            isValid: false,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.radioValue = this.value;
+        this.radioValue = this.isVue3 ? this.modelValue : this.value;
         this.validate();
     },
     methods: {
@@ -61,15 +66,21 @@ export default {
         },
         raiseEvents() {
             this.$emit(`changed`, this.radioValue); // added for separate v-model events and external events
-            this.$emit(`input`, this.radioValue);
-        }        
-    },
-    watch: {
-        value(newValue) {
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.radioValue);
+        },
+        setRadioState(newValue) {
             this.checked = newValue;
             
             this.raiseEvents();
             this.validate();
+        }        
+    },
+    watch: {
+        value(newValue) {
+            this.setRadioState(newValue);
+        },
+        modelValue(newValue) {
+            this.setRadioState(newValue);
         }
     }
 };

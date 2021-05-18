@@ -11,6 +11,9 @@ export default {
         value:{
             type: [Number, String, Object, Array]
         },
+        modelValue: {
+            type: [Number, String, Object, Array]
+        },
         disable: {
             type: Boolean,
             default: () => false
@@ -39,11 +42,12 @@ export default {
         return {
             open: false,
             isValid: false,
-            selectedOptions: new Set()
+            selectedOptions: new Set(),
+            isVue3: vueVersion === `3`
         }  
     },
     created() {
-        this.setSelectedOptions(this.value);
+        this.setSelectedOptions(this.isVue3 ? this.modelValue : this.value);
         this.validate();
     },
     methods: {
@@ -83,13 +87,17 @@ export default {
 
             this.$emit(`selected`, $event);
             const selected = Array.from(this.selectedOptions);
-            this.$emit(`input`, this.multiple ? selected : selected[0] || null);
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.multiple ? selected : selected[0] || null);
 
             this.validate();
         }
     },
     watch: {
         value(newValue) {
+            this.setSelectedOptions(newValue);
+            this.validate();
+        },
+        modelValue(newValue) {
             this.setSelectedOptions(newValue);
             this.validate();
         }

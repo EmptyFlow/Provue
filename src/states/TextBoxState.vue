@@ -12,6 +12,10 @@ export default {
             type: String,
             default: () => ``
         },
+        modelValue: {
+            type: String,
+            default: () => ``
+        },
         type: {
             type: String,
             default: () => `text`
@@ -39,11 +43,12 @@ export default {
     data() {
         return {
             text: false,
-            isValid: false
+            isValid: false,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.text = this.value;
+        this.text = this.isVue3 ? this.modelValue : this.value;
         this.validate();
     },
     methods: {
@@ -62,22 +67,25 @@ export default {
         typeText(text) {
             if (this.disable) return;
 
-            this.text = text;
-
-            this.raiseEvents();
-            this.validate();
+            this.setValue(text);
         },
         raiseEvents() {
             this.$emit(`typed`, this.text); // added for separate v-model events and external events
-            this.$emit(`input`, this.text);
-        }        
-    },
-    watch: {
-        value(newValue) {
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.text);
+        },
+        setValue(newValue) { 
             this.text = newValue;
             
             this.raiseEvents();
             this.validate();
+        }
+    },
+    watch: {
+        value(newValue) {
+            this.setValue(newValue);
+        },
+        modelValue(newValue) {
+            this.setValue(newValue);
         }
     }
 };

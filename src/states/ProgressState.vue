@@ -12,6 +12,10 @@ export default {
             type: Number,
             default: () => 0
         },
+        modelValue: {
+            type: Number,
+            default: () => 0
+        },
         minimum: {
             type: Number,
             default: () => 0
@@ -23,17 +27,26 @@ export default {
     },
     data() {
         return {
-            percent: 0
+            percent: 0,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.percent = this.value;
+        this.percent = this.isVue3 ? this.modelValue : this.value;
     },
-    watch: {
-        value(newValue) {
+    methods: {
+        setProgress(newValue) {
             if (!newValue || isNaN(newValue)) return;
 
             this.percent = newValue;
+        }
+    },
+    watch: {
+        value(newValue) {
+            this.setProgress(newValue);
+        },
+        modelValue(newValue) {
+            this.setProgress(newValue);
         }
     }
 };

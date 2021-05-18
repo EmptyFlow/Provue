@@ -3,8 +3,8 @@
         <div
             class="progress-bar"
             role="progressbar"
-            :style="{ width: context.value + `%` }"
-            :aria-valuenow="context.value"
+            :style="{ width: context.percent + `%` }"
+            :aria-valuenow="context.percent"
             :aria-valuemin="context.minimum"
             :aria-valuemax="context.maximum">
         </div>

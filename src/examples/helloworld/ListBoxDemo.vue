@@ -3,8 +3,7 @@
         <div v-if="theme === `bootstrap`" class="stack">
             <list-box-state 
                 v-model="selectedItem"
-                :options="listItems"
-                @selected="listItemSelected($event)">
+                :options="listItems">
                 <template #default="{ context }">
                     <bootstrap-list-box-view :context="context">
                         <template #content="{ item }">
@@ -17,8 +16,7 @@
         <div v-if="theme === `material`" class="stack">
             <list-box-state class="full-width "
                 v-model="selectedItem"
-                :options="listItems"
-                @selected="listItemSelected($event)">
+                :options="listItems">
                 <template #default="{ context }">
                     <material-list-box-view :context="context">
                         <template #content="{ item }">
@@ -28,6 +26,7 @@
                 </template>
             </list-box-state>
         </div>
+        <span>{{ selectedItem }}</span>
     </div>
 </template>
 
@@ -47,11 +46,6 @@ export default async function() {
             return {
                 listItems: [{id: 1, title: `test 1`}, {id: 2, title: `test 2`}, {id: 3, title: `test 3`}],
                 selectedItem: []
-            }
-        },
-        methods: {
-            listItemSelected($event) {
-                console.log($event);
             }
         }
     }

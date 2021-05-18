@@ -16,6 +16,10 @@ export default {
             type: Number,
             default: () => 0
         },
+        modelValue: {
+            type: Number,
+            default: () => false
+        },
         disable: {
             type: Boolean,
             default: () => false
@@ -60,11 +64,12 @@ export default {
         return {
             number: false,
             isValid: false,
-            backValueChanges: null
+            backValueChanges: null,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.number = this.value;
+        this.number = this.isVue3 ? this.modelValue : this.value;
         this.validate();
     },
     methods: {
@@ -103,17 +108,23 @@ export default {
         },
         raiseEvents() {
             this.$emit(`typed`, this.number); // added for separate v-model events and external events
-            this.$emit(`input`, this.number);
-        }        
-    },
-    watch: {
-        value(newValue) {
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.number);
+        },
+        setNumber(newValue) {
             this.number = newValue;
 
             if (this.backValueChanges) this.backValueChanges(newValue);
            
             this.raiseEvents();
             this.validate();
+        }        
+    },
+    watch: {
+        value(newValue) {
+            this.setNumber(newValue);
+        },
+        modelValue(newValue) {
+            this.setNumber(newValue);
         }
     }
 };

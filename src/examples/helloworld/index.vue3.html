@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <script src="https://unpkg.com/vue@next"></script>
         <script src="../../libraries/vuejs.bootstraper.js"></script>
         <script src="../../libraries/resolveDependencies.js"></script>
         <style>
@@ -12,25 +12,24 @@
         </style>
     </head>
     <body>
-        <div id="app"> 
+        <div id="app">
         </div>
 
         <script>
-            //setup require dependency for components
-            VueBootstraper.require = DependencyResolver;
-
-            //load boot component 
-            new Vue(
+            const app = Vue.createApp(
                 {
-                    el: `#app`,
-                    template: `<boot></boot>`,
+                    template: `<root-component></root-component>`,
                     components: {
-                        Boot: () => VueBootstraper.loadComponent(`App.vue`)
+                        RootComponent: Vue.defineAsyncComponent(() => VueBootstraper.loadComponent(`App.vue`))
                     }
                 }
             );
+
+            //setup require dependency for components
+            VueBootstraper.require = DependencyResolver;
+            VueBootstraper.application = app;
+
+            app.mount('#app');
         </script>
     </body>
-
-
 </html>

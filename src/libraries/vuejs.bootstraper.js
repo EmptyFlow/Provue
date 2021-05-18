@@ -8,23 +8,7 @@ function vuejsbootstraper() {
         downloadingQueue: {},
         globalComponents: {},
         globalComponentsUrls: {},
-        install(Vue) {
-            const self = this; 
-
-            Vue.mixin({
-                beforeCreate() {
-                    const components = this.$options.components;
-    
-                    for (let componentName in components) {
-                        const component = components[componentName];
-
-                        if (!(typeof component === `string` && component.startsWith(`remote:`))) continue;
-                        
-                        components[componentName] = () => self.loadComponent.call(self, component.replace(`remote:`, ``));
-                    }
-                }
-            });
-       },
+        application: null, // Vue.js app instance it need for supporting Vue3
         attachStyles(node, url) {
             if (this.alreadyUsedStyles[url]) return;
 
@@ -51,6 +35,9 @@ function vuejsbootstraper() {
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,
+                `application`,
+                `vueVersion`,
+                `vueInstance`,
                 script
             );            
             componentFunction.displayName = url.replace(`http://`, ``).replace(`https://`, ``).replace(/\.\./g, ``).replace(/\//g, ``);
@@ -60,7 +47,10 @@ function vuejsbootstraper() {
                 this.require,
                 this.loadComponentGlobally.bind(this),
                 this.loadComponentsGlobally.bind(this),
-                this.loadComponent.bind(this)
+                this.loadComponent.bind(this),
+                this.application,
+                this.application ? `3` : `2`,
+                Vue
             );
             if (module.exports instanceof Function) module.exports = await module.exports();
 
@@ -146,7 +136,11 @@ function vuejsbootstraper() {
 
             if (this.globalComponents[component.name]) return;
 
-            Vue.component(component.name, component);
+            if (this.application) {
+                this.application.component(component.name, component);
+            } else {
+                Vue.component(component.name, component);
+            }
 
             this.globalComponentsUrls[url] = true;
             this.globalComponents[component.name] = true;
@@ -157,7 +151,7 @@ function vuejsbootstraper() {
     }
 }
 
-const Vue2Bootstraper = vuejsbootstraper();
+const VueBootstraper = vuejsbootstraper();
 
 // common.js export style
-if (typeof exports !== `undefined`) exports = Vue2Bootstraper;
+if (typeof exports !== `undefined`) exports = VueBootstraper;

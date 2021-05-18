@@ -12,6 +12,10 @@ export default {
             type: [Number, Array],
             default: () => 0
         },
+        modelValue: {
+            type: [Number, Array],
+            default: () => 0
+        },
         isRange: {
             type: Boolean,
             default: () => false
@@ -43,11 +47,12 @@ export default {
     data() {
         return {
             position: 0,
-            isValid: false
+            isValid: false,
+            isVue3: vueVersion === `3`
         }
     },
     created() {
-        this.position = this.value;
+        this.position = this.isVue3 ? this.modelValue : this.value;
         this.validate();
     },
     methods: {
@@ -76,11 +81,9 @@ export default {
         },
         raiseEvents() {
             this.$emit(`changed`, this.position); // added for separate v-model events and external events
-            this.$emit(`input`, this.position);
-        }        
-    },
-    watch: {
-        value(newValue) {
+            this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.position);
+        },
+        setSliderValue(newValue) {
             if (this.isRange && Array.isArray(newValue) && newValue.length !== 2) {
                 console.warn(`SliderState: v-model value is array but don't have two values`);
                 return;
@@ -89,6 +92,14 @@ export default {
             
             this.raiseEvents();
             this.validate();
+        }
+    },
+    watch: {
+        value(newValue) {
+            this.setSliderValue(newValue);
+        },
+        modelValue(newValue) {
+            this.setSliderValue(newValue);
         }
     }
 };
