@@ -35,7 +35,7 @@ function vuejsbootstraper() {
                 `globalComponent`,
                 `globalComponents`,
                 `remoteComponent`,
-                `application`,
+                `vueApplication`,
                 `vueVersion`,
                 `vueInstance`,
                 script
