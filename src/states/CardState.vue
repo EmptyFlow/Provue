@@ -19,6 +19,10 @@ export default {
         imageUrl: {
             type: String,
             default: () => ``
+        },
+        imageAlt: {
+            type: String,
+            default: () => ``
         }
     }
 };
