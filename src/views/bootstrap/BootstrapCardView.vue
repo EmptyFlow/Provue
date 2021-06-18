@@ -1,7 +1,7 @@
 <template>
     <div
         class="card"
-        :style="{ 'width': width }">
+        :style="{ 'width' : width }">
         <img
             :src="context.imageUrl"
             class="card-img-top"
