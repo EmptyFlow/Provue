@@ -84,6 +84,8 @@
                 </modal-dialog-demo>
                 <toast-demo>                    
                 </toast-demo>
+                <card-demo>                    
+                </card-demo>
             </template>
         </validate-host>
     </div>
@@ -111,7 +113,8 @@ export default async function () {
         `ButtonsDemo.vue`,
         `CheckBoxDemo.vue`,
         `TestComponentNamespace.vue`,
-        `ToastDemo.vue`
+        `ToastDemo.vue`,
+        `CardDemo.vue`
     );
     //local registration means that you can load component each time component loaded
     const ProgressDemo = await remoteComponent(`ProgressDemo.vue`); 
