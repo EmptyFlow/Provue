@@ -9,11 +9,11 @@
                 <bootstrap-card-view
                     v-if="theme === `bootstrap`"
                     :context="context"
+                    width="300px"
                 ></bootstrap-card-view>
                 <material-card-view
                     v-if="theme === `material`"
-                    :context="context"
-                    width="300px"
+                    :context="context"                    
                 />
             </template>
         </card-state>
