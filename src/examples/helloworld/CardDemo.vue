@@ -4,7 +4,7 @@
             title="Card title!"
             message="You can show message as text"
             image-alt="Card image"
-            image-urt="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png">
+            image-url="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png">
             <template #default="{ context }">
                 <bootstrap-card-view
                     v-if="theme === `bootstrap`"
@@ -13,6 +13,7 @@
                 <material-card-view
                     v-if="theme === `material`"
                     :context="context"
+                    width="300px"
                 />
             </template>
         </card-state>

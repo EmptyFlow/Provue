@@ -84,7 +84,8 @@
                 </modal-dialog-demo>
                 <toast-demo>                    
                 </toast-demo>
-                <card-demo>                    
+                <card-demo
+                    :theme="theme">                    
                 </card-demo>
             </template>
         </validate-host>
