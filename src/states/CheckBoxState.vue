@@ -45,9 +45,9 @@ export default {
     },
     methods: {
         validate() {
+	        this.isValid = true;
             if (!this.validators) return;
             if (this.validateHost) this.validateHost.clear(this);
-            this.isValid = true;
 
             for (const [key, value] of Object.entries(this.validators)) {
                 if (!value.check(this.checked)) {
