@@ -42,7 +42,7 @@ export default {
     },
     data() {
         return {
-            text: false,
+            text: ``,
             isValid: false,
             isVue3: vueVersion === `3`
         }
