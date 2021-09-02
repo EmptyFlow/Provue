@@ -242,15 +242,13 @@ export default {
         items(newValue) {
             if (!newValue) return;
 
-            this.items = newValue;
             this.loadPage(this.currentPage);
         },
         pageSizes(newValue) {
             if (!newValue) return;
             if (!newValue[0]) return;
             
-            this.pageSizes = newValue;
-            if (!(this.innerSelectedPageSize in this.pageSizes)) this.innerSelectedPageSize = this.pageSizes[0];
+            if (!(this.innerSelectedPageSize in this.pageSizes)) this.innerSelectedPageSize = newValue[0];
             this.loadPage(this.currentPage);
         }
     },
