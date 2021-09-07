@@ -9,25 +9,17 @@ export default {
     name: `FileUploaderState`,
     props: {
         value: {
-            type: String,
-            default: () => ``
+            type: Array,
+            default: () => []
         },
         modelValue: {
-            type: String,
-            default: () => ``
-        },
-        type: {
-            type: String,
-            default: () => `text`
+            type: Array,
+            default: () => []
         },
         placeholder: {
             type: String,
             default: () => ``
         },
-        readOnly: {
-            type: Boolean,
-            default: () => false
-        },                
         disable: {
             type: Boolean,
             default: () => false
@@ -67,7 +59,7 @@ export default {
             if (this.validateHost) this.validateHost.clear(this);
 
             for (const [key, value] of Object.entries(this.validators)) {
-                if (!value.check(this.text)) {
+                if (!value.check(this.files)) {
                     this.isValid = false;
                     if (this.validateHost) this.validateHost.add(this, { rule: key, messages: value.messages });
                 }
@@ -78,7 +70,6 @@ export default {
             if (!fileList) return;
 
             this.setValue(fileList);
-            
         },
         clearFiles() {
             if (!this.files.length) return;
@@ -89,20 +80,21 @@ export default {
             this.$emit(`selected`, this.files); // added for separate v-model events and external events
             this.$emit(this.isVue3 ? `update:modelValue` : `input`, this.files);
         },
-        setValue(newValue) { 
-            this.files = newValue;
-            this.text = newValue.map(a => a.name).join(`, `);
+        setValue(newValue, needRaiseEvents = true) {
+            const fileArray = [...newValue];
+            this.files = fileArray;
+            this.text = fileArray.map(a => a.name).join(`, `);
             
-            this.raiseEvents();
+            if (needRaiseEvents) this.raiseEvents();
             this.validate();
         }
     },
     watch: {
         value(newValue) {
-            this.setValue(newValue);
+            this.setValue(newValue, false);
         },
         modelValue(newValue) {
-            this.setValue(newValue);
+            this.setValue(newValue, false);
         }
     }
 };
