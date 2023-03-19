@@ -1,4 +1,4 @@
-# Provue core components
+# Provue
 The repository contains core components for microservice/micro frontend projects. Components based on library [Vue.js](https://vuejs.org/). Supported Vue.js 2 and 3.
 
 ## What is core components?
